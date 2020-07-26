@@ -1,9 +1,10 @@
 //importações necessárias
-import {TextInput, Button} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, PermissionsAndroid} from 'react-native';
+import {View, StyleSheet, PermissionsAndroid} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-import MapView, { Marker } from 'react-native-maps'
+import MapView, { Marker } from 'react-native-maps';
+import Block from './ButtonBlocks';
 
 //componente: Tela de pesquisa
 const Search = ({navigation, route}) => {
@@ -13,7 +14,7 @@ const Search = ({navigation, route}) => {
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
   const [markedPlace, setMarkedPlace] = useState({latitude: 0, longitude: 0});
 
-  //função de procura pelas informações de temperatura
+  //função de procura pelas informações de temperatura de acordo com o texto digitado
   const fetchCities = (text) => {
     setCity(text);
     (
@@ -84,27 +85,6 @@ const Search = ({navigation, route}) => {
     );
   }
 
-  //função de envio de informação entre telas
-  const send = () => {
-    if(route.params.elements[0]){
-      navigation.navigate('Register', 
-        {
-          latitude: markedPlace.latitude, 
-          longitude: markedPlace.longitude,
-          elements: route.params.elements,
-        }
-      );
-
-    }else{
-      navigation.navigate('Register', 
-        {
-          latitude: markedPlace.latitude, 
-          longitude: markedPlace.longitude,
-        }
-      );
-    }
-  }
-
   return (
     <View style={styles.display}>
         
@@ -136,18 +116,15 @@ const Search = ({navigation, route}) => {
       loadingEnabled
       onPress={(position) => {gerenciar(position.nativeEvent)}} >
         <Marker coordinate={markedPlace} />
-      </MapView>
+      </MapView>{/*Fim do mapa*/}
 
-      {/* Botão favoritar */}
-      <Button 
-      mode="contained"
-      theme={{ colors:{primary: '#00aaff'} }}
-      onPress={() => {send()}}
-      style={styles.button} >
-        <Text style={styles.text}>Favourite</Text>
-      </Button>
+      <Block
+      navigation={navigation}
+      markedPlace={markedPlace}
+      route={route}
+      userLocation={userPosition} />
 
-    </View>
+    </View>//fim da View principal
   );
 };
 
@@ -156,26 +133,11 @@ const styles = StyleSheet.create({
   display: {
     flex: 1,
   },
-
-  button: {
-    marginBottom: 10,
-    marginTop: 10,
-    borderRadius: 20,
-    width: '50%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
-
-  text: {
-    color: 'white',
-  },
-
   map: {
     width: '100%',
     height: '50%',
     marginTop: 2,
   },
-
 });
 
 export default Search;

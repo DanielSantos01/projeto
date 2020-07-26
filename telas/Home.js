@@ -126,14 +126,17 @@ const Home = ({ navigation, route }) => {
                 keyExtractor={item => item.key} />
             </View>
         
+            {/*Botão de pesquisa por um novo local*/}
             <Button 
+            icon='magnify'
             mode="contained" 
             onPress={() => {navigation.navigate('Search', {elements: items})}}
             theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }}
             style={styles.button} >
-                <Text style={{color: 'white'}}>Search Place</Text>
+                <Text style={{color: 'white'}}>Search</Text>
             </Button>
 
+            {/*Rodapé*/}
             <View style={styles.ground}>
                 <Text style={styles.groundText}>by TrackingTrade{'\n'}2020</Text>
             </View>
