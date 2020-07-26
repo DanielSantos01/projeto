@@ -35,18 +35,4 @@ const App = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  ground: {
-    backgroundColor: 'rgba(0, 120, 255, .75)',
-  },
-
-  groundText: {
-    color: 'white',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    marginTop: 5,
-    marginBottom: 5,
-  }
-});
-
 export default App;
