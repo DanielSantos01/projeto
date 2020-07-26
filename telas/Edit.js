@@ -22,7 +22,7 @@ const Edit = ({ navigation, route }) => {
     }
 
     return(
-        <View style={{flex: 1}}>
+        <View style={styles.display}>
 
             {/* Caixa de entrada de texto */}
             <TextInput 
@@ -52,6 +52,10 @@ const Edit = ({ navigation, route }) => {
 
 //folhas de estilo
 const styles = StyleSheet.create({
+    display: {
+        flex: 1,
+    },
+
     button: {
         marginBottom: 10,
         marginTop: 10,

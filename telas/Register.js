@@ -28,7 +28,7 @@ const Register = ({ navigation, route }) => {
     }
 
     return(
-        <View style={{flex: 1}}>
+        <View style={styles.display}>
 
             {/* Caixa de entrada de texto */}
             <TextInput 
@@ -53,6 +53,10 @@ const Register = ({ navigation, route }) => {
 
 //folhas de estilo
 const styles = StyleSheet.create({
+    display:{
+        flex: 1,
+    },
+
     button: {
         marginBottom: 10,
         marginTop: 10,
