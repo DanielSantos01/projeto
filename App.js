@@ -1,3 +1,4 @@
+//importaçẽos necessárias para o funcionamento do app
 import React from 'react';
 import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
@@ -7,8 +8,10 @@ import Home from './telas/Home';
 import Data from './telas/Data';
 import Register from './telas/Register';
 
+//cria a pilha de navegação, permitindo navegar entre as telas do app
 const Stack = createStackNavigator();
 
+//componente representativo do app
 const App = () => {
   return (
     <>
