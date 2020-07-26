@@ -1,6 +1,5 @@
 import React from 'react';
-
-import {StyleSheet, ScrollView, View, Text, StatusBar, Button} from 'react-native';
+import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Search from './telas/Search';
