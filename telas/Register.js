@@ -2,8 +2,12 @@ import {TextInput, Button} from 'react-native-paper';
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 
+//componente representativo da tela de registro
 const Register = ({ navigation, route }) => {
+    //hook de estado
     const [local, setLocal] = useState('');
+
+    //variável que representa o valor da última chave da lista
     let lastKey;
     if(route.params.elements){
         lastKey = route.params.elements[route.params.elements.length - 1].key;
@@ -11,6 +15,7 @@ const Register = ({ navigation, route }) => {
         lastKey = '0';
     }
 
+    //função de envio de informação entre telas
     const send = () => {
         let newLocal = {
             key: `${parseInt(lastKey, 10)+1}`,
@@ -23,12 +28,15 @@ const Register = ({ navigation, route }) => {
 
     return(
         <View style={{flex: 1}}>
+
+            {/* Caixa de entrada de texto */}
             <TextInput 
             label='local name' 
             theme={{ colors:{primary: '#000000'} }} 
             value={local}
             onChangeText={(text) => {setLocal(text)}} />
 
+            {/* botçao para saolvar o local*/}
             <Button 
             icon='content-save'
             mode="contained" 
@@ -42,6 +50,7 @@ const Register = ({ navigation, route }) => {
     );
 }
 
+//folhas de estilo
 const styles = StyleSheet.create({
     button: {
         marginBottom: 10,

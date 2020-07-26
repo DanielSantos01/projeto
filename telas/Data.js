@@ -2,7 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import {Title, Card} from 'react-native-paper';
 
+//componente representativo da tela de visualização dos dados
 const Data = ({navigation, route}) => {
+    //hook de estado
     const [info, setInfo] = useState({
         name: 'Loading...',
         temp: 'Loading...',
@@ -11,10 +13,12 @@ const Data = ({navigation, route}) => {
         icon: 'Loading...',
     });
 
+    //chama apenas uma vez a função responsável por buscar a informação de clima
     useEffect(() => {
         weather();
     }, []);
 
+    //função de busca pela informação de clima
     const weather = () => {
         fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${route.params.latitude}&lon=${route.params.longitude}&appid=d812ba41f36e1b6fdb2e8a4b8224ec45&units=metric`)
         .then(item => item.json())

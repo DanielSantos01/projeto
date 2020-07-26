@@ -1,28 +1,38 @@
 import {Button} from 'react-native-paper';
 import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, FlatList, SafeAreaView} from 'react-native';
+import {Text, View, StyleSheet, FlatList} from 'react-native';
 
 const Home = ({ navigation, route }) => {
-
+    //hook de estado
     const [items, setItems] = useState([]);
 
-    useEffect(() => {
+    //função que verifica se deve ou não atualizar o estado do componente
+    const checkSetItems = () => {
         if(route.params !== undefined && items[0] !== undefined){
             if(route.params.newLocal != items[items.length - 1]){
                 let la = items;
-                la.push(route.params.newLocal)
+                la.push(route.params.newLocal);
                 setItems(la);
             }
         }else if(route.params !== undefined){
             setItems([route.params.newLocal]);
         }
+    }
+
+    //verifica mudanças na variável route
+    useEffect(() => {
+        checkSetItems()
     }, [route]);
 
+    //função que dita como os itens da lista devem ser renderizados
     const renderItem = ({ item }) => {
         return(
             <View style={styles.itemBox}>
+
+                {/*nome escolhido pelu usuário*/}
                 <Text style={styles.item}>{item.title}</Text>
 
+                {/*botão para visualizar o clima do local*/}
                 <Button 
                 icon='brightness-7'
                 mode="contained" 
@@ -37,6 +47,7 @@ const Home = ({ navigation, route }) => {
         );
     }
 
+    //componente mostrado quando a lista está vazia
     const empty = () => {
         return(
             <View>
@@ -47,11 +58,14 @@ const Home = ({ navigation, route }) => {
 
     return(
         <View>
+
+            {/* título da página */}
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>Weather</Text>
                 <Text style={styles.subtitle}>each season your way</Text>
             </View>
             
+            {/*Lista de lugares favoritados*/}
             <View style={{height: 250}}>
                 <FlatList 
                 scrollEnabled
@@ -76,7 +90,7 @@ const Home = ({ navigation, route }) => {
         </View>
     );
 }
-
+//folhas de estilo
 const styles = StyleSheet.create({
     title: {
         marginTop: 5,

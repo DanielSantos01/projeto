@@ -16,20 +16,21 @@ const Search = ({navigation, route}) => {
   //função de procura pelas informações de temperatura
   const fetchCities = (text) => {
     setCity(text);
-    fetch("http://api.openweathermap.org/data/2.5/weather?q=" + text + '&appid=d812ba41f36e1b6fdb2e8a4b8224ec45')
-    .then(item => item.json())
-    .then(cityData => {
-      if(cityData.cod == 200){
-        updateMarkerByCityName(cityData);
-      }
-    })
+    (
+      fetch("http://api.openweathermap.org/data/2.5/weather?q=" + text + '&appid=d812ba41f36e1b6fdb2e8a4b8224ec45')
+      .then(item => item.json())
+      .then(cityData => { if(cityData.cod == 200) updateMarkerByCityName(cityData) })
+    )
   }
 
+  //função que atualiza a posição do marcador de acordo com o nome do textInput
   const updateMarkerByCityName = (data) => {
-    setVisibility({
-      latitude: data.coord.lat,
-      longitude: data.coord.lon,
-    });
+    setVisibility(
+      {
+        latitude: data.coord.lat,
+        longitude: data.coord.lon,
+      }
+    );
   }
 
   //funçã responsável por verificar a permissão do usuário
@@ -48,30 +49,28 @@ const Search = ({navigation, route}) => {
     }
   }
 
-
+  //analisa as mudanças nas propriedades recebidas
   useEffect(() => {
     verifyLocationPermission();
     if(hasLocationPermission){
-        Geolocation.getCurrentPosition(
-            position => {
-              setUserPosition(
-                {
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude,
-                }
-              );
-              setVisibility(
-                {
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude,
-                }
-              );
-            },
-            error => {
-              console.log(error.code, error.message);
+      Geolocation.getCurrentPosition(
+        position => {
+          setUserPosition(
+            {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
             }
-        );
+          );
+          setVisibility(
+            {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            }
+          );
 
+        }, error => {console.log(error.code, error.message)}
+
+      );
     }
   }, [hasLocationPermission]);
 
@@ -85,8 +84,8 @@ const Search = ({navigation, route}) => {
     );
   }
 
+  //função de envio de informação entre telas
   const send = () => {
-  
     if(route.params.elements[0]){
       navigation.navigate('Register', 
         {
@@ -94,63 +93,65 @@ const Search = ({navigation, route}) => {
           longitude: visibility.longitude,
           elements: route.params.elements,
         }
-      )
+      );
+
     }else{
       navigation.navigate('Register', 
         {
           latitude: visibility.latitude, 
           longitude: visibility.longitude,
         }
-      )
+      );
     }
   }
 
   return (
     <View style={styles.display}>
         
-        <TextInput 
-        label='search by city name' 
-        theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }} 
-        value={city}
-        onChangeText={(text) => fetchCities(text)} />
+      {/* Caixa de entrada de texto */}
+      <TextInput 
+      label='search by city name' 
+      theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }} 
+      value={city}
+      onChangeText={(text) => fetchCities(text)} />
 
-        <MapView
-        scrollEnabled={true}
-        zoomEnabled={true}
-        style={styles.map}
-        initialRegion={{
-          latitude: userPosition.latitude,
-          longitude: userPosition.longitude,
-          latitudeDelta: 5,
-          longitudeDelta: 5,
-        }}
+      {/* Mapa */}
+      <MapView
+      scrollEnabled={true}
+      zoomEnabled={true}
+      style={styles.map}
+      initialRegion={{
+        latitude: userPosition.latitude,
+        longitude: userPosition.longitude,
+        latitudeDelta: 5,
+        longitudeDelta: 5,
+      }}
+      region={{
+        latitude: visibility.latitude,
+        longitude: visibility.longitude,
+        latitudeDelta: 10,
+        longitudeDelta: 10,
+      }}
+      showsUserLocation
+      loadingEnabled
+      onPress={(position) => {gerenciar(position.nativeEvent)}} >
+        <Marker coordinate={visibility} />
+      </MapView>
 
-        region={{
-          latitude: visibility.latitude,
-          longitude: visibility.longitude,
-          latitudeDelta: 10,
-          longitudeDelta: 10,
-        }}
-        showsUserLocation
-        loadingEnabled
-        onPress={(position) => {gerenciar(position.nativeEvent)}} >
-          <Marker coordinate={visibility}/>
-        </MapView>
-
-        <Button 
-        mode="contained"
-        theme={{ colors:{primary: '#00aaff'} }}
-        onPress={() => {send()}}
-        style={styles.button} >
-
-          <Text style={styles.text}>Favourite</Text>
-
-        </Button>
+      {/* Botão favoritar */}
+      <Button 
+      mode="contained"
+      theme={{ colors:{primary: '#00aaff'} }}
+      onPress={() => {send()}}
+      style={styles.button} >
+        <Text style={styles.text}>Favourite</Text>
+      </Button>
 
     </View>
   );
 };
 
+//folha de estilo
 const styles = StyleSheet.create({
   display: {
     flex: 1,
