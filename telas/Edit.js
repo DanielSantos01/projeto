@@ -31,7 +31,7 @@ const Edit = ({ navigation, route }) => {
             {/* Caixa de entrada de texto */}
             <TextInput 
             label='new place name' 
-            theme={{ colors:{primary: '#000000'} }} 
+            theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }}
             value={newName}
             onChangeText={(text) => {setNewName(text)}} />
 

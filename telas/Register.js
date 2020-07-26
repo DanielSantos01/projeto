@@ -33,7 +33,7 @@ const Register = ({ navigation, route }) => {
             {/* Caixa de entrada de texto */}
             <TextInput 
             label='local name' 
-            theme={{ colors:{primary: '#000000'} }} 
+            theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }}
             value={local}
             onChangeText={(text) => {setLocal(text)}} />
 
