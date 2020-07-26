@@ -11,7 +11,7 @@ const Search = ({navigation, route}) => {
   const [city, setCity] = useState('');
   const [userPosition, setUserPosition] = useState({latitude: 0, longitude: 0});
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
-  const [visibility, setVisibility] = useState({latitude: 0, longitude: 0});
+  const [markedPlace, setMarkedPlace] = useState({latitude: 0, longitude: 0});
 
   //função de procura pelas informações de temperatura
   const fetchCities = (text) => {
@@ -25,7 +25,7 @@ const Search = ({navigation, route}) => {
 
   //função que atualiza a posição do marcador de acordo com o nome do textInput
   const updateMarkerByCityName = (data) => {
-    setVisibility(
+    setMarkedPlace(
       {
         latitude: data.coord.lat,
         longitude: data.coord.lon,
@@ -61,7 +61,7 @@ const Search = ({navigation, route}) => {
               longitude: position.coords.longitude,
             }
           );
-          setVisibility(
+          setMarkedPlace(
             {
               latitude: position.coords.latitude,
               longitude: position.coords.longitude,
@@ -76,7 +76,7 @@ const Search = ({navigation, route}) => {
 
   //função que atualiza a posição do marcador
   const gerenciar = (position, route) => {
-    setVisibility(
+    setMarkedPlace(
       {
         latitude: position.coordinate.latitude, 
         longitude: position.coordinate.longitude,
@@ -89,8 +89,8 @@ const Search = ({navigation, route}) => {
     if(route.params.elements[0]){
       navigation.navigate('Register', 
         {
-          latitude: visibility.latitude, 
-          longitude: visibility.longitude,
+          latitude: markedPlace.latitude, 
+          longitude: markedPlace.longitude,
           elements: route.params.elements,
         }
       );
@@ -98,8 +98,8 @@ const Search = ({navigation, route}) => {
     }else{
       navigation.navigate('Register', 
         {
-          latitude: visibility.latitude, 
-          longitude: visibility.longitude,
+          latitude: markedPlace.latitude, 
+          longitude: markedPlace.longitude,
         }
       );
     }
@@ -127,15 +127,15 @@ const Search = ({navigation, route}) => {
         longitudeDelta: 5,
       }}
       region={{
-        latitude: visibility.latitude,
-        longitude: visibility.longitude,
+        latitude: markedPlace.latitude,
+        longitude: markedPlace.longitude,
         latitudeDelta: 10,
         longitudeDelta: 10,
       }}
       showsUserLocation
       loadingEnabled
       onPress={(position) => {gerenciar(position.nativeEvent)}} >
-        <Marker coordinate={visibility} />
+        <Marker coordinate={markedPlace} />
       </MapView>
 
       {/* Botão favoritar */}

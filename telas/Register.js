@@ -1,5 +1,5 @@
 import {TextInput, Button} from 'react-native-paper';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 
 //componente representativo da tela de registro

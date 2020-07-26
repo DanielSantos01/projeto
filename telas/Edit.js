@@ -1,5 +1,5 @@
 import {TextInput, Button} from 'react-native-paper';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 
 //componente representativo da tela de registro
@@ -9,16 +9,12 @@ const Edit = ({ navigation, route }) => {
 
     //função de envio de informação entre telas
     const send = () => {
-        
         let newLocal = {
             name: newName,
             loc: route.params.loc,
             change: '2',
         };
-        
         navigation.navigate('Home', {newLocal});
-        //console.log(newPlaceName);
-
     }
 
     return(
@@ -41,7 +37,7 @@ const Edit = ({ navigation, route }) => {
                 <Text style={{color: 'white'}}>Change</Text>
             </Button>
 
-
+            {/*Texto mostrando o atual nome do lugar*/}
             <View style={styles.textContainer}>
                 <Text style={styles.text}>Current Name: {route.params.name}</Text>
             </View>
