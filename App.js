@@ -13,10 +13,10 @@ const App = () => {
   return (
     <>
       <NavigationContainer theme={{colors: {
-        card: 'rgba(0, 120, 255, .83)',
-        background: 'white',
-        text: 'white',
-      }}}>
+          card: 'rgba(0, 120, 255, .83)',
+          background: 'white',
+          text: 'white',}
+        }}>
         
         <Stack.Navigator>
           <Stack.Screen name='Home' component={Home} />
@@ -27,9 +27,6 @@ const App = () => {
         <StatusBar barStyle='dark-content' backgroundColor='rgba(0, 120, 255, .87)'/>
 
       </NavigationContainer>
-
-     
-      
     </>
   );
 };
