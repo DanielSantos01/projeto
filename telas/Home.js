@@ -9,11 +9,17 @@ const Home = ({ navigation, route }) => {
     //função que verifica se deve ou não atualizar o estado do componente
     const checkSetItems = () => {
         if(route.params !== undefined && items[0] !== undefined){
-            if(route.params.newLocal != items[items.length - 1]){
+            if((route.params.newLocal != items[items.length - 1]) && route.params.newLocal.change === '1'){
                 let la = items;
                 la.push(route.params.newLocal);
                 setItems(la);
+
+            }else if(route.params.newLocal.change === '2'){
+                let la = items;
+                la[route.params.newLocal.loc].title = route.params.newLocal.name;
+                setItems(la);
             }
+
         }else if(route.params !== undefined){
             setItems([route.params.newLocal]);
         }
@@ -30,18 +36,30 @@ const Home = ({ navigation, route }) => {
             <View style={styles.itemBox}>
 
                 {/*nome escolhido pelu usuário*/}
-                <Text style={styles.item}>{item.title}</Text>
+                <View style={{width: '50%'}}>
+                    <Button 
+                    mode="contained" 
+                    onPress={() => {navigation.navigate('Data', {
+                        latitude: item.latitude, 
+                        longitude: item.longitude})
+                    }}
+                    theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }}
+                    style={styles.weather} >
+                        <Text style={styles.item}>{item.title}</Text>
+                    </Button>
+                    
+                </View>
 
-                {/*botão para visualizar o clima do local*/}
                 <Button 
-                icon='brightness-7'
+                icon='border-color'
                 mode="contained" 
-                onPress={() => {navigation.navigate('Data', {
-                    latitude: item.latitude, 
-                    longitude: item.longitude})
+                onPress={() => {navigation.navigate('Edit', {
+                    loc: items.indexOf(item),
+                    name: item.title,
+                    })
                 }}
                 theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }}
-                style={styles.weather} />
+                style={styles.complements} />
 
             </View>   
         );
@@ -72,7 +90,8 @@ const Home = ({ navigation, route }) => {
                 ListEmptyComponent={empty}
                 data={items}
                 renderItem={renderItem}
-                style={styles.list} />
+                style={styles.list}
+                keyExtractor={item => item.key} />
             </View>
         
             <Button 
@@ -124,8 +143,8 @@ const styles = StyleSheet.create({
 
     item: {
         textAlign: 'left',
-        fontSize: 20,
-        color: 'rgba(0, 120, 255, .83)',
+        fontSize: 11,
+        color: 'white',
         marginLeft: 20,
         fontWeight: 'bold',
         marginTop: 'auto',
@@ -157,11 +176,9 @@ const styles = StyleSheet.create({
     weather: {
         marginBottom: 10,
         marginTop: 10,
-        borderRadius: 20,
-        width: '8%',
-        marginLeft: 'auto',
-        marginRight: 20,
-        justifyContent: 'center',
+        width: '100%',
+        marginLeft: 5,
+        marginRight: 0,
     },
 
     empty: {
@@ -186,6 +203,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 5,
         marginBottom: 5,
+    },
+
+    complements: {
+        marginLeft: '15%',
+        height: 30,
+        marginTop: 'auto',
+        marginBottom: 'auto',
+        width: '15%',
+        
     }
 });
 

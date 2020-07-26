@@ -5,36 +5,35 @@ import {View, StyleSheet, Text} from 'react-native';
 //componente representativo da tela de registro
 const Edit = ({ navigation, route }) => {
     //hook de estado
-    const [local, setLocal] = useState('');
-
-    //variável que representa o valor da última chave da lista
-    let lastKey;
-    if(route.params.elements){
-        lastKey = route.params.elements[route.params.elements.length - 1].key;
-    }else{
-        lastKey = '0';
-    }
+    const [newName, setNewName] = useState('');
 
     //função de envio de informação entre telas
     const send = () => {
+        
         let newLocal = {
-            key: `${parseInt(lastKey, 10)+1}`,
-            title: local,
-            latitude: route.params.latitude,
-            longitude: route.params.longitude,
+            name: newName,
+            loc: route.params.loc,
+            change: '2',
         };
+        
         navigation.navigate('Home', {newLocal});
+        //console.log(newPlaceName);
+
     }
 
     return(
         <View style={{flex: 1}}>
 
+            <View>
+                <Text>Previous Name: {route.params.name}</Text>
+            </View>
+
             {/* Caixa de entrada de texto */}
             <TextInput 
-            label='local name' 
+            label='new place name' 
             theme={{ colors:{primary: '#000000'} }} 
-            value={local}
-            onChangeText={(text) => {setLocal(text)}} />
+            value={newName}
+            onChangeText={(text) => {setNewName(text)}} />
 
             {/* botçao para saolvar o local*/}
             <Button 
@@ -43,7 +42,7 @@ const Edit = ({ navigation, route }) => {
             onPress={() => {send()}}
             theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }}
             style={styles.button} >
-                <Text style={{color: 'white'}}>Register place</Text>
+                <Text style={{color: 'white'}}>Change</Text>
             </Button>
             
         </View>

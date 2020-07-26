@@ -22,6 +22,7 @@ const Register = ({ navigation, route }) => {
             title: local,
             latitude: route.params.latitude,
             longitude: route.params.longitude,
+            change: '1',
         };
         navigation.navigate('Home', {newLocal});
     }
