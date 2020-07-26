@@ -5,20 +5,32 @@ import {Text, View, StyleSheet, FlatList} from 'react-native';
 const Home = ({ navigation, route }) => {
     //hook de estado
     const [items, setItems] = useState([]);
-    let la;
+    const [refresh, refreshing] = useState(false);
+
+    //verifica se o estado de refresh mudou (virando verdadeiro), se sim, o torna falso novamente
+    /*Necessário para atualizar a lista após editar algum nome*/
+    useEffect(() => {
+        refreshing(false);
+    }, [refresh]);
+
+    //verifica mudanças na variável route
+    useEffect(() => {
+        checkSetItems();
+    }, [route]);
 
     //função que verifica se deve ou não atualizar o estado do componente
     const checkSetItems = () => {
         if(route.params !== undefined && items[0] !== undefined){
             if((route.params.newLocal != items[items.length - 1]) && route.params.newLocal.change === '1'){
-                la = items;
+                let la = items;
                 la.push(route.params.newLocal);
                 setItems(la);
 
             }else if(route.params.newLocal.change === '2'){
-                la = items;
+                let la = items;
                 la[route.params.newLocal.loc].title = route.params.newLocal.name;
                 setItems(la);
+                refreshing(true);
             }
 
         }else if(route.params !== undefined){
@@ -26,20 +38,17 @@ const Home = ({ navigation, route }) => {
         }
     }
 
-    //verifica mudanças na variável route
-    useEffect(() => {
-        checkSetItems()
-    }, [route]);
-
     //função responsável por retirar um elemento da lista
-    const cutOut = ({ item }) => {
-        la = items;
+    const cutOut = (item) => {
+        let la = items;
         if(la.length === 1){
             la = [];
+
         }else{
-            la = la.splice(la.indexOf(item), 1);
+            la.splice(la.indexOf(item), 1);
         }
         setItems(la);
+        refreshing(true);
     }
 
     //função que dita como os itens da lista devem ser renderizados
@@ -50,6 +59,7 @@ const Home = ({ navigation, route }) => {
                 {/*botão com o nome escolhido pelo usuário*/}
                 <View style={{width: '50%'}}>
                     <Button 
+                    icon='cloud-outline'
                     mode="contained" 
                     onPress={() => {navigation.navigate('Data', {
                         latitude: item.latitude, 
@@ -76,7 +86,7 @@ const Home = ({ navigation, route }) => {
 
                 {/*botão para excluir o elemento*/}
                 <Button 
-                icon='close'
+                icon='close-circle'
                 mode="contained" 
                 onPress={() => {cutOut(item)}}
                 theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }}
@@ -107,7 +117,8 @@ const Home = ({ navigation, route }) => {
             {/*Lista de lugares favoritados*/}
             <View style={{height: 250}}>
                 <FlatList 
-                scrollEnabled
+                refreshing={refresh}
+                onRefresh={() => {}}
                 ListEmptyComponent={empty}
                 data={items}
                 renderItem={renderItem}

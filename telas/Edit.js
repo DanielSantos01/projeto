@@ -24,10 +24,6 @@ const Edit = ({ navigation, route }) => {
     return(
         <View style={{flex: 1}}>
 
-            <View>
-                <Text>Previous Name: {route.params.name}</Text>
-            </View>
-
             {/* Caixa de entrada de texto */}
             <TextInput 
             label='new place name' 
@@ -44,6 +40,11 @@ const Edit = ({ navigation, route }) => {
             style={styles.button} >
                 <Text style={{color: 'white'}}>Change</Text>
             </Button>
+
+
+            <View style={styles.textContainer}>
+                <Text style={styles.text}>Current Name: {route.params.name}</Text>
+            </View>
             
         </View>
     );
@@ -58,6 +59,20 @@ const styles = StyleSheet.create({
         width: '50%',
         marginLeft: 'auto',
         marginRight: 'auto',
+        marginTop: '10%',
+    },
+
+    text: {
+        fontSize: 20,
+        textAlign: 'center',
+        color: 'rgba(0, 120, 255, .65)',
+        fontWeight: 'bold',
+        marginTop: '10%',
+    },
+
+    textContainer: {
+        marginTop: 10,
+        marginBottom: 10,
     },
 });
 
