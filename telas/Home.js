@@ -5,17 +5,18 @@ import {Text, View, StyleSheet, FlatList} from 'react-native';
 const Home = ({ navigation, route }) => {
     //hook de estado
     const [items, setItems] = useState([]);
+    let la;
 
     //função que verifica se deve ou não atualizar o estado do componente
     const checkSetItems = () => {
         if(route.params !== undefined && items[0] !== undefined){
             if((route.params.newLocal != items[items.length - 1]) && route.params.newLocal.change === '1'){
-                let la = items;
+                la = items;
                 la.push(route.params.newLocal);
                 setItems(la);
 
             }else if(route.params.newLocal.change === '2'){
-                let la = items;
+                la = items;
                 la[route.params.newLocal.loc].title = route.params.newLocal.name;
                 setItems(la);
             }
@@ -30,12 +31,23 @@ const Home = ({ navigation, route }) => {
         checkSetItems()
     }, [route]);
 
+    //função responsável por retirar um elemento da lista
+    const cutOut = ({ item }) => {
+        la = items;
+        if(la.length === 1){
+            la = [];
+        }else{
+            la = la.splice(la.indexOf(item), 1);
+        }
+        setItems(la);
+    }
+
     //função que dita como os itens da lista devem ser renderizados
     const renderItem = ({ item }) => {
         return(
             <View style={styles.itemBox}>
 
-                {/*nome escolhido pelu usuário*/}
+                {/*botão com o nome escolhido pelo usuário*/}
                 <View style={{width: '50%'}}>
                     <Button 
                     mode="contained" 
@@ -49,7 +61,8 @@ const Home = ({ navigation, route }) => {
                     </Button>
                     
                 </View>
-
+                
+                {/*botão para editar o nome*/}
                 <Button 
                 icon='border-color'
                 mode="contained" 
@@ -58,6 +71,14 @@ const Home = ({ navigation, route }) => {
                     name: item.title,
                     })
                 }}
+                theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }}
+                style={styles.complements} />
+
+                {/*botão para excluir o elemento*/}
+                <Button 
+                icon='close'
+                mode="contained" 
+                onPress={() => {cutOut(item)}}
                 theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }}
                 style={styles.complements} />
 
@@ -103,7 +124,7 @@ const Home = ({ navigation, route }) => {
             </Button>
 
             <View style={styles.ground}>
-                <Text style={styles.groundText}>by One Trade{'\n'}2020</Text>
+                <Text style={styles.groundText}>by TrackingTrade{'\n'}2020</Text>
             </View>
             
         </View>
@@ -206,7 +227,7 @@ const styles = StyleSheet.create({
     },
 
     complements: {
-        marginLeft: '15%',
+        marginLeft: '5%',
         height: 30,
         marginTop: 'auto',
         marginBottom: 'auto',
