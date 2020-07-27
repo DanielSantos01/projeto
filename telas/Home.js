@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {Text, View, StyleSheet, FlatList} from 'react-native';
 
 //componente representativo da tela inicial
-const Home = ({ navigation, route }) => {
+const Home = ({ navigation, route:{ params } }) => {
     //hooks de estado
     const [verified, setVerified] = useState(false);
     const [refresh, refreshing] = useState(false);
@@ -19,7 +19,7 @@ const Home = ({ navigation, route }) => {
     //verifica mudanças na variável route
     useEffect(() => {
         checkSetItems();
-    }, [route]);
+    }, [params]);
 
     //chama a verificação dos dados salvos na memória
     useEffect(() => {
@@ -45,27 +45,27 @@ const Home = ({ navigation, route }) => {
 
     //função que verifica se deve ou não atualizar o estado do componente
     const checkSetItems = () => {
-        if(route.params !== undefined && items[0] !== undefined){
+        if(params !== undefined && items[0] !== undefined){
 
             //caso os itens sejam diferentes e a chave seja de criação (1), adiciona um novo item
-            if((route.params.newLocal != items[items.length - 1]) && route.params.newLocal.change === '1'){
+            if((params.newLocal != items[items.length - 1]) && params.newLocal.change === '1'){
                 let data = items;
-                data.unshift(route.params.newLocal);
+                data.unshift(params.newLocal);
                 setItems(data);
                 saveData(data);
             
             //caso a chave seja de edição (2), muda o nome do lugar
-            }else if(route.params.newLocal.change === '2'){
+            }else if(params.newLocal.change === '2'){
                 let data = items;
-                data[route.params.newLocal.loc].title = route.params.newLocal.name;
+                data[params.newLocal.loc].title = params.newLocal.name;
                 setItems(data);
                 saveData(data);
                 refreshing(true);
             }
         
         //executado apenas no primeiro elemento, onde item[0] é undefined
-        }else if(route.params !== undefined){
-            let data = [route.params.newLocal];
+        }else if(params !== undefined){
+            let data = [params.newLocal];
             setItems(data);
             saveData(data);
         }
@@ -82,15 +82,14 @@ const Home = ({ navigation, route }) => {
 
     //função responsável por retirar um elemento da lista
     const cutOut = (item) => {
-        let la = items;
-        if(la.length === 1){
-            la = [];
-
+        let data = items;
+        if(data.length === 1){
+            data = [];
         }else{
-            la.splice(la.indexOf(item), 1);
+            data.splice(data.indexOf(item), 1);
         }
-        setItems(la);
-        saveData(la);
+        setItems(data);
+        saveData(data);
         refreshing(true);
     }
 

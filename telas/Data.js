@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Image, Text} from 'react-native';
 import {Title, Card} from 'react-native-paper';
 
 //componente representativo da tela de visualização dos dados
@@ -32,38 +32,67 @@ const Data = ({navigation, route}) => {
     }
 
     return(
-        <View style={{flex: 1}}>
+        <View style={styles.display}>
             
-            <View style={{alignItems: 'center'}}>
-                <Title style={{color: '#00aaff', marginTop: 30, fontSize: 30}}>
+            <View style={styles.imagePlace}>
+                <Title style={styles.place}>
                     {info.name}
                 </Title>
 
                 <Image 
-                style={{width: 120, height: 120}}
-                source={{uri:'http://openweathermap.org/img/w/'+info.icon+'.png'}} />
+                style={styles.image}
+                source={{uri:`http://openweathermap.org/img/w/${info.icon}.png`}} />
             </View>
 
-            <Card style={{main: 5, padding: 12}}>
-                <Title style={{color: '#00aaff'}}>
-                    Temperature = {info.temp}
-                </Title>
+            <Card style={styles.weatherCard}>
+                <Text style={styles.weatherText}>
+                <Title style={styles.weatherTitle}>Temperature:</Title> {info.temp}
+                </Text>
             </Card>
         
-            <Card style={{main: 5, padding: 12}}>
-                <Title style={{color: '#00aaff'}}>
-                    Humidity = {info.humidity}
-                </Title>
+            <Card style={styles.weatherCard}>
+                <Text style={styles.weatherText}>
+                <Title style={styles.weatherTitle}>Humidity:</Title> {info.humidity}
+                </Text>
             </Card>
 
-            <Card style={{main: 5, padding: 12}}>
-                <Title style={{color: '#00aaff'}}>
-                    Description = {info.desc}
-                </Title>
+            <Card style={styles.weatherCard}>
+                <Text style={styles.weatherText}>
+                    <Title style={styles.weatherTitle}>Description:</Title> {info.desc}
+                </Text>
             </Card>
         </View>
 
     );
 }
+
+const styles = StyleSheet.create({
+    display: {
+        flex: 1,
+    },
+    imagePlace:{
+        alignItems: 'center',
+    },
+    place: {
+        color: 'rgba(0, 120, 255, .65)', 
+        marginTop: 30, fontSize: 30,
+    },
+    image: {
+        width: 120, 
+        height: 120,
+        marginBottom: 30,
+    },
+    weatherCard: {
+        padding: 12,
+    },
+    weatherTitle: {
+        fontWeight: 'bold',
+        color: 'rgba(0, 120, 255, .65)',
+    },
+    weatherText: {
+        color: 'rgba(0, 120, 255, .65)',
+        fontSize: 20,
+    }
+});
 
 export default Data;
