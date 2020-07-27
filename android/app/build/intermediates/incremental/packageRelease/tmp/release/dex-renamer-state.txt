@@ -1,0 +1,4 @@
+#Mon Jul 27 18:23:29 BRT 2020
+base.0=/home/daniel/Área de Trabalho/projeto/android/app/build/intermediates/dex/release/mergeDexRelease/out/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
