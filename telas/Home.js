@@ -3,14 +3,15 @@ import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Text, View, StyleSheet, FlatList} from 'react-native';
 
+//componente representativo da tela inicial
 const Home = ({ navigation, route }) => {
+    //hooks de estado
     const [verified, setVerified] = useState(false);
     const [refresh, refreshing] = useState(false);
     const [items, setItems] = useState([]);
     let init;
 
     //verifica se o estado de refresh mudou (virando verdadeiro), se sim, o torna falso novamente
-    /*Necessário para atualizar a lista após editar algum nome*/
     useEffect(() => {
         refreshing(false);
     }, [refresh]);
@@ -20,16 +21,16 @@ const Home = ({ navigation, route }) => {
         checkSetItems();
     }, [route]);
 
-    //faz a verificação de dados salvos na memória
+    //chama a verificação dos dados salvos na memória
     useEffect(() => {
         verify();
         setVerified(true);
     }, []);
 
+    //verifica se existem informações na memória e define um valor inicial de acordo com o que for recebido
     const verify = async () => {
         try{
             init = await AsyncStorage.getItem('@data');
-            
             if(init != null){
                 init = JSON.parse(init);
                 setItems(init);
@@ -38,37 +39,42 @@ const Home = ({ navigation, route }) => {
                 init = [];
             }
         }catch(e){
-            
+            alert(e);
         }
     }
 
     //função que verifica se deve ou não atualizar o estado do componente
     const checkSetItems = () => {
         if(route.params !== undefined && items[0] !== undefined){
-            if((route.params.newLocal != items[items.length - 1]) && route.params.newLocal.change === '1'){
-                let la = items;
-                la.push(route.params.newLocal);
-                setItems(la);
-                saveData(la);
 
+            //caso os itens sejam diferentes e a chave seja de criação (1), adiciona um novo item
+            if((route.params.newLocal != items[items.length - 1]) && route.params.newLocal.change === '1'){
+                let data = items;
+                data.push(route.params.newLocal);
+                setItems(data);
+                saveData(data);
+            
+            //caso a chave seja de edição (2), muda o nome do lugar
             }else if(route.params.newLocal.change === '2'){
-                let la = items;
-                la[route.params.newLocal.loc].title = route.params.newLocal.name;
-                setItems(la);
-                saveData(la);
+                let data = items;
+                data[route.params.newLocal.loc].title = route.params.newLocal.name;
+                setItems(data);
+                saveData(data);
                 refreshing(true);
             }
-
+        
+        //executado apenas no primeiro elemento, onde item[0] é undefined
         }else if(route.params !== undefined){
-            setItems([route.params.newLocal]);
-            saveData([route.params.newLocal]);
+            let data = [route.params.newLocal];
+            setItems(data);
+            saveData(data);
         }
     }
 
+    //função responsável por salvar os dados do app após modificações de estado
     const saveData = async (data) => {
         try{
-            let parse = JSON.stringify(data);
-            await AsyncStorage.setItem('@data', parse);
+            await AsyncStorage.setItem('@data', JSON.stringify(data));
         }catch(e){
             alert(e);
         }
@@ -128,8 +134,7 @@ const Home = ({ navigation, route }) => {
                 onPress={() => {cutOut(item)}}
                 theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }}
                 style={styles.complements} />
-
-            </View>   
+            </View>//Fim da view principal   
         );
     }
 
@@ -144,7 +149,6 @@ const Home = ({ navigation, route }) => {
 
     return(
         <View>
-
             {/* título da página */}
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>Weather</Text>
@@ -177,10 +181,10 @@ const Home = ({ navigation, route }) => {
             <View style={styles.footer}>
                 <Text style={styles.footerText}>by TrackingTrade{'\n'}2020</Text>
             </View>
-            
-        </View>
+        </View>//Fim da view principal
     );
 }
+
 //folhas de estilo
 const styles = StyleSheet.create({
     title: {
@@ -190,7 +194,6 @@ const styles = StyleSheet.create({
         color: 'rgba(0, 120, 255, .75)',
         fontWeight: 'bold',
     },
-
     titleContainer: {
         backgroundColor: '#ffffff',
         width: '60%',
@@ -199,7 +202,6 @@ const styles = StyleSheet.create({
         marginTop: 5,
         borderRadius: 25,
     },
-
     subtitle: {
         fontSize: 12,
         textAlign: 'center',
@@ -207,12 +209,10 @@ const styles = StyleSheet.create({
         color: 'rgba(0, 120, 255, .65)',
         marginTop: -5,
     },
-
     list: {
         marginTop: 20,
         marginBottom: 20,
     },
-
     item: {
         textAlign: 'left',
         fontSize: 11,
@@ -222,7 +222,6 @@ const styles = StyleSheet.create({
         marginTop: 'auto',
         marginBottom: 'auto',
     },
-
     itemBox: {
         shadowColor: '#000',
         shadowOffset: {
@@ -244,7 +243,6 @@ const styles = StyleSheet.create({
         marginLeft: 'auto',
         marginRight: 'auto',
     },
-
     weather: {
         marginBottom: 10,
         marginTop: 10,
@@ -252,7 +250,6 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginRight: 0,
     },
-
     empty: {
         textAlign: 'left',
         fontSize: 20,
@@ -263,12 +260,10 @@ const styles = StyleSheet.create({
         marginBottom: 'auto',
         fontWeight: 'bold',
     },
-
     footer: {
         marginTop: '42%',
         backgroundColor: 'rgba(0, 120, 255, .75)',
     },
-    
     footerText: {
         color: 'white',
         textAlign: 'center',
@@ -276,15 +271,13 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 5,
     },
-
     complements: {
         marginLeft: '5%',
         height: 30,
         marginTop: 'auto',
         marginBottom: 'auto',
-        width: '15%',
-        
-    }
+        width: '15%', 
+    },
 });
 
 export default Home;
