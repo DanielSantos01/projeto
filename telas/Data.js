@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Image, Text} from 'react-native';
+import {View, StyleSheet, Image, Text, ActivityIndicator} from 'react-native';
 import {Title, Card} from 'react-native-paper';
 import MapView, { Marker } from 'react-native-maps';
 
@@ -20,8 +20,8 @@ const Data = ({navigation, route:{ params:{latitude, longitude} }}) => {
     }, []);
 
     //função de busca pela informação de clima
-    const weather = () => {
-        fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=d812ba41f36e1b6fdb2e8a4b8224ec45&units=metric`)
+    const weather = async () => {
+        await fetch('https://api.openweathermap.org/data/2.5/weather?lat='+latitude+'&lon='+longitude+'&appid=d812ba41f36e1b6fdb2e8a4b8224ec45&units=metric')
         .then(item => item.json())
         .then(results => setInfo({
             name: results.name,
@@ -30,12 +30,13 @@ const Data = ({navigation, route:{ params:{latitude, longitude} }}) => {
             desc: results.weather[0].description,
             icon: results.weather[0].icon,
         }))
+        .catch((error) => console.error(error));
     }
 
     return(
         <View style={styles.display}>
-            
-            {/*Nome do lugar e imagem representativa do clima*/}
+
+            {/*Nome do lugar e imagem representativa do tempo*/}
             <View style={styles.imagePlace}>
                 <Title style={styles.place}>
                     {info.name}
@@ -43,34 +44,36 @@ const Data = ({navigation, route:{ params:{latitude, longitude} }}) => {
 
                 <Image 
                 style={styles.image}
-                source={{uri:`http://openweathermap.org/img/w/${info.icon}.png`}} />
-            </View>
+                source={{uri:'https://openweathermap.org/img/w/'+info.icon+'.png'}} />
+            </View> 
 
-            {/*Card exibidor da temperatura*/}
+            {/*Card com a informação da temperatura*/}
             <Card style={styles.weatherCard}>
                 <Text style={styles.weatherText}>
                 <Title style={styles.weatherTitle}>Temperature:</Title> {info.temp} ºC
                 </Text>
             </Card>
         
-            {/*Card exibidor da humidade*/}
+            {/*Card com a informação da humidade*/}
             <Card style={styles.weatherCard}>
                 <Text style={styles.weatherText}>
                 <Title style={styles.weatherTitle}>Humidity:</Title> {info.humidity} g/Kg
                 </Text>
             </Card>
 
-            {/*Card exibidor da descrição do clima*/}
+            {/*Card com a descrição do clima*/}
             <Card style={styles.weatherCard}>
                 <Text style={styles.weatherText}>
                     <Title style={styles.weatherTitle}>Description:</Title> {info.desc}
                 </Text>
             </Card>
-
-            {/*Mapa mostrando para onde o local do clima que o usuário está obervando*/}
+            
+            {/*Card com a informação da temperatura*/}
             <View style={styles.mapInfoContainer}>
                 <Text style={styles.mapInfo}>You are looking at here</Text>
             </View>
+
+            {/*Mapa estático mostrando a região a qual o clima que o usuário está vendo corresponde*/}
             <MapView
             scrollEnabled={false}
             zoomEnabled={false}

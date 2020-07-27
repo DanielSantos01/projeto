@@ -15,10 +15,10 @@ const Search = ({navigation, route}) => {
   const [markedPlace, setMarkedPlace] = useState({latitude: 0, longitude: 0});
 
   //função de procura pelas informações de temperatura de acordo com o texto digitado
-  const fetchCities = (text) => {
+  const fetchCities = async (text) => {
     setCity(text);
     (
-      fetch("http://api.openweathermap.org/data/2.5/weather?q=" + text + '&appid=d812ba41f36e1b6fdb2e8a4b8224ec45')
+      await fetch("https://api.openweathermap.org/data/2.5/weather?q=" + text + '&appid=d812ba41f36e1b6fdb2e8a4b8224ec45')
       .then(item => item.json())
       .then(cityData => { if(cityData.cod == 200) updateMarkerByCityName(cityData) })
     )

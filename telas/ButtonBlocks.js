@@ -47,12 +47,12 @@ const Block = ({navigation, markedPlace, route, userLocation}) => {
 
     //redireciona para a tela de dados climáticos passando latitude e longitude
     const showWeather = (where) => {
-        if(where === 'user location'){
+        if(where === 1){
             navigation.navigate('Data', {
                 latitude: userLocation.latitude,
                 longitude: userLocation. longitude,
             });
-        }else if(where === 'marked location'){
+        }else if(where === 2){
             navigation.navigate('Data', {
                 latitude: markedPlace.latitude,
                 longitude: markedPlace.longitude,
@@ -92,7 +92,7 @@ const Block = ({navigation, markedPlace, route, userLocation}) => {
                     icon='cloud-outline'
                     mode="contained"
                     theme={{ colors:{primary: 'rgba(0, 120, 255, .75)'} }}
-                    onPress={() => {showWeather('marked location')}}
+                    onPress={() => {showWeather(2)}}
                     style={styles.button} >
                         <Text style={styles.text}>weather</Text>
                     </Button>
@@ -115,7 +115,7 @@ const Block = ({navigation, markedPlace, route, userLocation}) => {
                     icon='cloud-outline'
                     mode="contained"
                     theme={{ colors:{primary: 'rgba(0, 120, 255, .75)'} }}
-                    onPress={() => {showWeather('user location')}}
+                    onPress={() => {showWeather(1)}}
                     style={styles.button} >
                         <Text style={styles.text}>weather</Text>
                     </Button>
