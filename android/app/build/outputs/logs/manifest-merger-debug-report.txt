@@ -169,7 +169,7 @@ ADDED from /home/daniel/Área de Trabalho/projeto/android/app/src/main/AndroidMa
 		ADDED from /home/daniel/Área de Trabalho/projeto/android/app/src/main/AndroidManifest.xml:16:9-64
 	android:name
 		ADDED from /home/daniel/Área de Trabalho/projeto/android/app/src/main/AndroidManifest.xml:15:9-54
-activity#com.projeto.MainActivity
+activity#com.weather.MainActivity
 ADDED from /home/daniel/Área de Trabalho/projeto/android/app/src/main/AndroidManifest.xml:17:7-27:18
 	android:label
 		ADDED from /home/daniel/Área de Trabalho/projeto/android/app/src/main/AndroidManifest.xml:19:9-41

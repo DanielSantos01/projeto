@@ -1,6 +1,6 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-3    package="com.projeto"
+3    package="com.weather"
 4    android:versionCode="1"
 5    android:versionName="1.0" >
 6
@@ -36,7 +36,7 @@
 21
 22    <application
 22-->/home/daniel/Área de Trabalho/projeto/android/app/src/main/AndroidManifest.xml:7:5-29:19
-23        android:name="com.projeto.MainApplication"
+23        android:name="com.weather.MainApplication"
 23-->/home/daniel/Área de Trabalho/projeto/android/app/src/main/AndroidManifest.xml:8:7-38
 24        android:allowBackup="false"
 24-->/home/daniel/Área de Trabalho/projeto/android/app/src/main/AndroidManifest.xml:12:7-34
@@ -62,7 +62,7 @@
 35
 36        <activity
 36-->/home/daniel/Área de Trabalho/projeto/android/app/src/main/AndroidManifest.xml:17:7-27:18
-37            android:name="com.projeto.MainActivity"
+37            android:name="com.weather.MainActivity"
 37-->/home/daniel/Área de Trabalho/projeto/android/app/src/main/AndroidManifest.xml:18:9-37
 38            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
 38-->/home/daniel/Área de Trabalho/projeto/android/app/src/main/AndroidManifest.xml:20:9-86
