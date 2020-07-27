@@ -10,7 +10,7 @@ const Register = ({ navigation, route }) => {
     //variável que representa o valor da última chave da lista
     let lastKey;
     if(route.params.elements){
-        lastKey = route.params.elements[route.params.elements.length - 1].key;
+        lastKey = route.params.elements[0].key;
     }else{
         lastKey = '0';
     }

@@ -50,7 +50,7 @@ const Home = ({ navigation, route }) => {
             //caso os itens sejam diferentes e a chave seja de criação (1), adiciona um novo item
             if((route.params.newLocal != items[items.length - 1]) && route.params.newLocal.change === '1'){
                 let data = items;
-                data.push(route.params.newLocal);
+                data.unshift(route.params.newLocal);
                 setItems(data);
                 saveData(data);
             
