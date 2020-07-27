@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Image, Text} from 'react-native';
 import {Title, Card} from 'react-native-paper';
+import MapView, { Marker } from 'react-native-maps';
 
 //componente representativo da tela de visualização dos dados
-const Data = ({navigation, route}) => {
+const Data = ({navigation, route:{ params:{latitude, longitude} }}) => {
     //hook de estado
     const [info, setInfo] = useState({
         name: 'Loading...',
@@ -20,7 +21,7 @@ const Data = ({navigation, route}) => {
 
     //função de busca pela informação de clima
     const weather = () => {
-        fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${route.params.latitude}&lon=${route.params.longitude}&appid=d812ba41f36e1b6fdb2e8a4b8224ec45&units=metric`)
+        fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=d812ba41f36e1b6fdb2e8a4b8224ec45&units=metric`)
         .then(item => item.json())
         .then(results => setInfo({
             name: results.name,
@@ -34,6 +35,7 @@ const Data = ({navigation, route}) => {
     return(
         <View style={styles.display}>
             
+            {/*Nome do lugar e imagem representativa do clima*/}
             <View style={styles.imagePlace}>
                 <Title style={styles.place}>
                     {info.name}
@@ -44,28 +46,53 @@ const Data = ({navigation, route}) => {
                 source={{uri:`http://openweathermap.org/img/w/${info.icon}.png`}} />
             </View>
 
+            {/*Card exibidor da temperatura*/}
             <Card style={styles.weatherCard}>
                 <Text style={styles.weatherText}>
-                <Title style={styles.weatherTitle}>Temperature:</Title> {info.temp}
+                <Title style={styles.weatherTitle}>Temperature:</Title> {info.temp} ºC
                 </Text>
             </Card>
         
+            {/*Card exibidor da humidade*/}
             <Card style={styles.weatherCard}>
                 <Text style={styles.weatherText}>
-                <Title style={styles.weatherTitle}>Humidity:</Title> {info.humidity}
+                <Title style={styles.weatherTitle}>Humidity:</Title> {info.humidity} g/Kg
                 </Text>
             </Card>
 
+            {/*Card exibidor da descrição do clima*/}
             <Card style={styles.weatherCard}>
                 <Text style={styles.weatherText}>
                     <Title style={styles.weatherTitle}>Description:</Title> {info.desc}
                 </Text>
             </Card>
+
+            {/*Mapa mostrando para onde o local do clima que o usuário está obervando*/}
+            <View style={styles.mapInfoContainer}>
+                <Text style={styles.mapInfo}>You are looking at here</Text>
+            </View>
+            <MapView
+            scrollEnabled={false}
+            zoomEnabled={false}
+            style={styles.map}
+            region={{
+                latitude: latitude,
+                longitude: longitude,
+                latitudeDelta: 0.6,
+                longitudeDelta: 0.6,
+            }}
+            loadingEnabled >
+                <Marker coordinate={{
+                    latitude: latitude,
+                    longitude: longitude,
+                }} />
+            </MapView>
         </View>
 
     );
 }
 
+//folha de estilo
 const styles = StyleSheet.create({
     display: {
         flex: 1,
@@ -80,7 +107,7 @@ const styles = StyleSheet.create({
     image: {
         width: 120, 
         height: 120,
-        marginBottom: 30,
+        marginBottom: '3%'
     },
     weatherCard: {
         padding: 12,
@@ -92,7 +119,21 @@ const styles = StyleSheet.create({
     weatherText: {
         color: 'rgba(0, 120, 255, .65)',
         fontSize: 20,
-    }
+    },
+    map: {
+        width: '100%',
+        height: '30%',
+    },
+    mapInfo: {
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        fontSize: 17,
+        color: 'white',
+    },
+    mapInfoContainer:{
+        marginTop: '4%',
+        backgroundColor: 'rgba(0, 120, 255, .5)',
+    },
 });
 
 export default Data;
