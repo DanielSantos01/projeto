@@ -1,16 +1,17 @@
 import {TextInput, Button} from 'react-native-paper';
-import React, {useState} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, StyleSheet, Text, Alert} from 'react-native';
 
 //componente representativo da tela de registro
-const Register = ({ navigation, route }) => {
+const Register = ({ navigation, route:{ params:{ latitude, longitude, elements } } }) => {
     //hook de estado
     const [local, setLocal] = useState('');
+    const [alreadyExist, setAlreadyExist] = useState(false);
 
     //variável que representa o valor da última chave da lista
     let lastKey;
-    if(route.params.elements){
-        lastKey = route.params.elements[0].key;
+    if(elements){
+        lastKey = elements[0].key;
     }else{
         lastKey = '0';
     }
@@ -20,11 +21,34 @@ const Register = ({ navigation, route }) => {
         let newLocal = {
             key: `${parseInt(lastKey, 10)+1}`,
             title: local,
-            latitude: route.params.latitude,
-            longitude: route.params.longitude,
+            latitude: latitude,
+            longitude: longitude,
             change: '1',
         };
         navigation.navigate('Home', {newLocal});
+    }
+
+    const verifyName = () => {
+        let cont = 0;
+        if(elements){
+            elements.forEach((element, index, array) => {
+                if(element.title == local){
+                    cont++;
+                }
+            });
+
+            if(cont === 0){
+                send();
+            }else{
+                Alert.alert('invalid name', 
+                'This name already exist. Please, type an different name and try again',
+                [
+                    {text: 'ok', onPress: () => navigation.navigate('Register')}
+                ], {cancelable: true});
+            }
+        }else{
+            send();
+        }
     }
 
     return(
@@ -41,10 +65,10 @@ const Register = ({ navigation, route }) => {
             <Button 
             icon='content-save'
             mode="contained" 
-            onPress={() => {send()}}
+            onPress={() => {verifyName()}}
             theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }}
             style={styles.button} >
-                <Text style={{color: 'white'}}>Register place</Text>
+                <Text style={{color: 'white'}}>Register</Text>
             </Button>
             
         </View>

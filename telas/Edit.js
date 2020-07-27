@@ -1,9 +1,9 @@
 import {TextInput, Button} from 'react-native-paper';
 import React, {useState} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, Alert} from 'react-native';
 
 //componente representativo da tela de registro
-const Edit = ({ navigation, route }) => {
+const Edit = ({ navigation, route:{ params: { name, loc, elements } } }) => {
     //hook de estado
     const [newName, setNewName] = useState('');
 
@@ -11,10 +11,31 @@ const Edit = ({ navigation, route }) => {
     const send = () => {
         let newLocal = {
             name: newName,
-            loc: route.params.loc,
+            loc: loc,
             change: '2',
         };
         navigation.navigate('Home', {newLocal});
+    }
+
+    const verifyName = () => {
+        let cont = 0;
+        if(elements){
+            elements.forEach((element, index, array) => {
+                if(element.title == newName){
+                    cont++;
+                }
+            });
+
+            if(cont === 0){
+                send();
+            }else{
+                Alert.alert('invalid name', 
+                'This name already exist. Please, type an different name and try again',
+                [
+                    {text: 'ok', onPress: () => navigation.navigate('Edit')}
+                ], {cancelable: true});
+            }
+        }
     }
 
     return(
@@ -31,7 +52,7 @@ const Edit = ({ navigation, route }) => {
             <Button 
             icon='content-save'
             mode="contained" 
-            onPress={() => {send()}}
+            onPress={() => {verifyName()}}
             theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }}
             style={styles.button} >
                 <Text style={{color: 'white'}}>Change</Text>
@@ -39,7 +60,7 @@ const Edit = ({ navigation, route }) => {
 
             {/*Texto mostrando o atual nome do lugar*/}
             <View style={styles.textContainer}>
-                <Text style={styles.text}>Current Name: {route.params.name}</Text>
+                <Text style={styles.text}>Current Name: {name}</Text>
             </View>
             
         </View>
@@ -65,14 +86,18 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         textAlign: 'center',
-        color: 'rgba(0, 120, 255, .65)',
+        color: 'white',
         fontWeight: 'bold',
         marginTop: '10%',
+        marginBottom: 'auto',
+        marginTop: 'auto',
     },
 
     textContainer: {
-        marginTop: 10,
+        marginTop: 40,
         marginBottom: 10,
+        height: 50,
+        backgroundColor: 'rgba(255, 0, 0, .7)',
     },
 });
 

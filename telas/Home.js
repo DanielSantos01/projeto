@@ -1,7 +1,7 @@
 import {Button} from 'react-native-paper';
 import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import {Text, View, StyleSheet, FlatList} from 'react-native';
+import {Text, View, StyleSheet, FlatList, Alert} from 'react-native';
 
 //componente representativo da tela inicial
 const Home = ({ navigation, route:{ params } }) => {
@@ -93,6 +93,15 @@ const Home = ({ navigation, route:{ params } }) => {
         refreshing(true);
     }
 
+    const areYouSure = (item) => {
+        Alert.alert('Are You Sure?', 
+        'This action will exclude the place.',
+        [
+            {text: "yes, i'm sure", onPress: () => cutOut(item)},
+            {text: "ops, my mistake", onPress: () => navigation.navigate('Home')}
+        ], {cancelable: true});
+    }
+
     //função que dita como os itens da lista devem ser renderizados
     const renderItem = ({ item }) => {
         return(
@@ -121,6 +130,7 @@ const Home = ({ navigation, route:{ params } }) => {
                 onPress={() => {navigation.navigate('Edit', {
                     loc: items.indexOf(item),
                     name: item.title,
+                    elements: items,
                     })
                 }}
                 theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }}
@@ -130,7 +140,7 @@ const Home = ({ navigation, route:{ params } }) => {
                 <Button 
                 icon='close-circle'
                 mode="contained" 
-                onPress={() => {cutOut(item)}}
+                onPress={() => {areYouSure(item)}}
                 theme={{ colors:{primary: 'rgba(0, 120, 255, .65)'} }}
                 style={styles.complements} />
             </View>//Fim da view principal   

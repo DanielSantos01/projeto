@@ -45,6 +45,7 @@ const Block = ({navigation, markedPlace, route, userLocation}) => {
         }
     }
 
+    //redireciona para a tela de dados climáticos passando latitude e longitude
     const showWeather = (where) => {
         if(where === 'user location'){
             navigation.navigate('Data', {
@@ -68,7 +69,7 @@ const Block = ({navigation, markedPlace, route, userLocation}) => {
                 </View>
 
                 <View style={{width: '50%'}}>
-                <Text style={styles.boxTitle}>Your Location</Text>
+                <Text style={styles.boxTitle}>Your Place</Text>
                 </View>
             </View>
 
@@ -76,10 +77,7 @@ const Block = ({navigation, markedPlace, route, userLocation}) => {
             <View style={{flexDirection: 'row'}}>
 
                 {/*Botões para o lugar marcado no mapa*/}
-                <View style={{width: '45%', 
-                backgroundColor: 'rgba(0, 0, 0, .1)',
-                borderRadius: 5,
-                marginLeft: 5,}}>
+                <View style={styles.markedButtons}>
 
                     <Button 
                     icon='star-outline'
@@ -87,7 +85,7 @@ const Block = ({navigation, markedPlace, route, userLocation}) => {
                     theme={{ colors:{primary: 'rgba(0, 120, 255, .75)'} }}
                     onPress={() => {registerMarkedPlace()}}
                     style={styles.button} >
-                        <Text style={styles.text}>Favourite</Text>
+                        <Text style={styles.text}>Favorite</Text>
                     </Button>
 
                     <Button 
@@ -102,10 +100,7 @@ const Block = ({navigation, markedPlace, route, userLocation}) => {
                 </View>{/*Fim da view do lugar marcado no mapa*/}
 
                 {/*Botões para a posição do usuário*/}
-                <View style={{width: '45%', 
-                backgroundColor: 'rgba(0, 0, 0, .1)',
-                borderRadius: 5,
-                marginLeft: 20,}}>
+                <View style={styles.userButtons}>
 
                     <Button 
                     icon='star-outline'
@@ -113,7 +108,7 @@ const Block = ({navigation, markedPlace, route, userLocation}) => {
                     theme={{ colors:{primary: 'rgba(0, 120, 255, .75)'} }}
                     onPress={() => {registerUserPlace('user')}}
                     style={styles.button} >
-                        <Text style={styles.text}>Favourite</Text>
+                        <Text style={styles.text}>Favorite</Text>
                     </Button>
 
                     <Button 
@@ -133,14 +128,6 @@ const Block = ({navigation, markedPlace, route, userLocation}) => {
 
 //folha de estilo
 const styles = StyleSheet.create({
-    button: {
-      marginBottom: 10,
-      marginTop: 10,
-      borderRadius: 20,
-      width: '80%',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
     text: {
       color: 'white',
     },
@@ -149,8 +136,28 @@ const styles = StyleSheet.create({
       color: 'rgba(0, 120, 255, .75)',
       fontWeight: 'bold',
       fontSize: 20,
-      marginTop: 15,
-      marginBottom: 5,
+      marginTop: '10%',
+      marginBottom: '10%',
+    },
+    button: {
+        marginBottom: 10,
+        marginTop: 10,
+        borderRadius: 20,
+        width: '80%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
+    markedButtons:{
+        width: '47%', 
+        backgroundColor: 'rgba(0, 120, 255, .20)',
+        borderRadius: 5,
+        marginLeft: 5,
+    },
+    userButtons: {
+        width: '47%', 
+        backgroundColor: 'rgba(0, 120, 255, .20)',
+        borderRadius: 5,
+        marginLeft: 11,
     },
 });
 

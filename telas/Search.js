@@ -87,7 +87,7 @@ const Search = ({navigation, route}) => {
 
   return (
     <View style={styles.display}>
-        
+
       {/* Caixa de entrada de texto */}
       <TextInput 
       label='search by city name' 
@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
   map: {
     width: '100%',
     height: '50%',
-    marginTop: 2,
   },
 });
 
