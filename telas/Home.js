@@ -1,11 +1,13 @@
 import {Button} from 'react-native-paper';
 import React, {useState, useEffect} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import {Text, View, StyleSheet, FlatList} from 'react-native';
 
 const Home = ({ navigation, route }) => {
-    //hook de estado
-    const [items, setItems] = useState([]);
+    const [verified, setVerified] = useState(false);
     const [refresh, refreshing] = useState(false);
+    const [items, setItems] = useState([]);
+    let init;
 
     //verifica se o estado de refresh mudou (virando verdadeiro), se sim, o torna falso novamente
     /*Necessário para atualizar a lista após editar algum nome*/
@@ -18,6 +20,28 @@ const Home = ({ navigation, route }) => {
         checkSetItems();
     }, [route]);
 
+    //faz a verificação de dados salvos na memória
+    useEffect(() => {
+        verify();
+        setVerified(true);
+    }, []);
+
+    const verify = async () => {
+        try{
+            init = await AsyncStorage.getItem('@data');
+            
+            if(init != null){
+                init = JSON.parse(init);
+                setItems(init);
+                refreshing(true);
+            }else{
+                init = [];
+            }
+        }catch(e){
+            
+        }
+    }
+
     //função que verifica se deve ou não atualizar o estado do componente
     const checkSetItems = () => {
         if(route.params !== undefined && items[0] !== undefined){
@@ -25,16 +49,28 @@ const Home = ({ navigation, route }) => {
                 let la = items;
                 la.push(route.params.newLocal);
                 setItems(la);
+                saveData(la);
 
             }else if(route.params.newLocal.change === '2'){
                 let la = items;
                 la[route.params.newLocal.loc].title = route.params.newLocal.name;
                 setItems(la);
+                saveData(la);
                 refreshing(true);
             }
 
         }else if(route.params !== undefined){
             setItems([route.params.newLocal]);
+            saveData([route.params.newLocal]);
+        }
+    }
+
+    const saveData = async (data) => {
+        try{
+            let parse = JSON.stringify(data);
+            await AsyncStorage.setItem('@data', parse);
+        }catch(e){
+            alert(e);
         }
     }
 
@@ -48,6 +84,7 @@ const Home = ({ navigation, route }) => {
             la.splice(la.indexOf(item), 1);
         }
         setItems(la);
+        saveData(la);
         refreshing(true);
     }
 
@@ -137,8 +174,8 @@ const Home = ({ navigation, route }) => {
             </Button>
 
             {/*Rodapé*/}
-            <View style={styles.ground}>
-                <Text style={styles.groundText}>by TrackingTrade{'\n'}2020</Text>
+            <View style={styles.footer}>
+                <Text style={styles.footerText}>by TrackingTrade{'\n'}2020</Text>
             </View>
             
         </View>
@@ -227,12 +264,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
-    ground: {
+    footer: {
         marginTop: '42%',
         backgroundColor: 'rgba(0, 120, 255, .75)',
     },
     
-    groundText: {
+    footerText: {
         color: 'white',
         textAlign: 'center',
         fontWeight: 'bold',
