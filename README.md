@@ -46,5 +46,9 @@ Adendos:
 
 5 - Paciência: a primeira consulta pelos dados climáticos pode levar alguns segundos, mas eles vão aparecer ;)
 
+5 - Testado nos seguintes dispositivos: Moto G8 plus - Moto G7 Play - Samsung A30S - Samsung Galaxy J8
+- Samsung Galaxy S8 - Samsung Galaxy S8 Plus - Xiaomi MiA1 - Xiaomi Redmi note 8 - Xiaomi Redmi note 7
+- Xiaomi Redmi 6 pro - Xiaomi Redmi S2 - Zenfone 3 Max
+- 
 
 
