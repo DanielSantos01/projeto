@@ -152,7 +152,7 @@ const Home = ({ navigation, route:{ params } }) => {
     const empty = () => {
         return(
             <View>
-                <Text style={styles.empty}>add the first place</Text>
+                <Text style={styles.empty}>your favorite places will appear here</Text>
             </View>
         );
     }
@@ -164,9 +164,13 @@ const Home = ({ navigation, route:{ params } }) => {
                 <Text style={styles.title}>Weather</Text>
                 <Text style={styles.subtitle}>each season your way</Text>
             </View>
+
+            <View>
+                <Text style={styles.listTitle}>Your list of places</Text>
+            </View>
             
             {/*Lista de lugares favoritados*/}
-            <View style={{height: 250}}>
+            <View style={{height: 200}}>
                 <FlatList 
                 refreshing={refresh}
                 onRefresh={() => {}}
@@ -219,6 +223,14 @@ const styles = StyleSheet.create({
         color: 'rgba(0, 120, 255, .65)',
         marginTop: -5,
     },
+    listTitle: {
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontWeight: 'bold',
+        color: 'rgba(0, 120, 255, .83)',
+        fontSize: 18,
+        marginTop: '10%',
+    },
     list: {
         marginTop: 20,
         marginBottom: 20,
@@ -244,10 +256,9 @@ const styles = StyleSheet.create({
         elevation: 2,
         flexDirection: 'row',
     },
-
     button: {
         marginBottom: 10,
-        marginTop: 10,
+        marginTop: 0,
         borderRadius: 20,
         width: '50%',
         marginLeft: 'auto',
@@ -262,13 +273,13 @@ const styles = StyleSheet.create({
     },
     empty: {
         textAlign: 'left',
-        fontSize: 20,
-        color: 'rgba(0, 120, 255, .83)',
+        fontSize: 15,
+        color: 'white',
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginTop: 'auto',
-        marginBottom: 'auto',
-        fontWeight: 'bold',
+        backgroundColor: 'rgba(0, 120, 255, .43)',
+        padding: 7,
+        borderRadius:5,
     },
     footer: {
         marginTop: '42%',
