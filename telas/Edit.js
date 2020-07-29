@@ -17,11 +17,12 @@ const Edit = ({ navigation, route:{ params: { name, loc, elements } } }) => {
         navigation.navigate('Home', {newLocal});
     }
 
+    //verifica se o novo nome escolhido já consta na lista
     const verifyName = () => {
         let cont = 0;
         if(elements){
             elements.forEach((element, index, array) => {
-                if(element.title == newName){
+                if(element.title === newName){
                     cont++;
                 }
             });
@@ -72,7 +73,6 @@ const styles = StyleSheet.create({
     display: {
         flex: 1,
     },
-
     button: {
         marginBottom: 10,
         marginTop: 10,
@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
         marginTop: '10%',
     },
-
     text: {
         fontSize: 20,
         textAlign: 'center',
@@ -92,7 +91,6 @@ const styles = StyleSheet.create({
         marginBottom: 'auto',
         marginTop: 'auto',
     },
-
     textContainer: {
         marginTop: 40,
         marginBottom: 10,

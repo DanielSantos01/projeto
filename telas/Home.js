@@ -93,6 +93,7 @@ const Home = ({ navigation, route:{ params } }) => {
         refreshing(true);
     }
 
+    //Pergunta ao usuário se ele deseja mesmo excluir o item
     const areYouSure = (item) => {
         Alert.alert('Are You Sure?', 
         'This action will exclude the place.',

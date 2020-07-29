@@ -1,12 +1,11 @@
 import {TextInput, Button} from 'react-native-paper';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, Text, Alert} from 'react-native';
 
 //componente representativo da tela de registro
 const Register = ({ navigation, route:{ params:{ latitude, longitude, elements } } }) => {
     //hook de estado
     const [local, setLocal] = useState('');
-    const [alreadyExist, setAlreadyExist] = useState(false);
 
     //variável que representa o valor da última chave da lista
     let lastKey;
@@ -28,11 +27,12 @@ const Register = ({ navigation, route:{ params:{ latitude, longitude, elements }
         navigation.navigate('Home', {newLocal});
     }
 
+    //Verifica se o nome digitado pelo usuário já consta na lista
     const verifyName = () => {
         let cont = 0;
         if(elements){
             elements.forEach((element, index, array) => {
-                if(element.title == local){
+                if(element.title === local){
                     cont++;
                 }
             });

@@ -21,7 +21,7 @@ const Data = ({navigation, route:{ params:{latitude, longitude} }}) => {
 
     //função de busca pela informação de clima
     const weather = async () => {
-        await fetch('https://api.openweathermap.org/data/2.5/weather?lat='+latitude+'&lon='+longitude+'&appid=d812ba41f36e1b6fdb2e8a4b8224ec45&units=metric')
+        await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=d812ba41f36e1b6fdb2e8a4b8224ec45&units=metric`)
         .then(item => item.json())
         .then(results => setInfo({
             name: results.name,
@@ -44,7 +44,7 @@ const Data = ({navigation, route:{ params:{latitude, longitude} }}) => {
 
                 <Image 
                 style={styles.image}
-                source={{uri:'https://openweathermap.org/img/w/'+info.icon+'.png'}} />
+                source={{uri:`https://openweathermap.org/img/w/${info.icon}.png`}} />
             </View> 
 
             {/*Card com a informação da temperatura*/}

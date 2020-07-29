@@ -18,7 +18,7 @@ const Search = ({navigation, route}) => {
   const fetchCities = async (text) => {
     setCity(text);
     (
-      await fetch("https://api.openweathermap.org/data/2.5/weather?q=" + text + '&appid=d812ba41f36e1b6fdb2e8a4b8224ec45')
+      await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${text}&appid=d812ba41f36e1b6fdb2e8a4b8224ec45`)
       .then(item => item.json())
       .then(cityData => { if(cityData.cod == 200) updateMarkerByCityName(cityData) })
     )
@@ -118,6 +118,7 @@ const Search = ({navigation, route}) => {
         <Marker coordinate={markedPlace} />
       </MapView>{/*Fim do mapa*/}
 
+      {/*Bloco de botões*/}
       <Block
       navigation={navigation}
       markedPlace={markedPlace}
