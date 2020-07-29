@@ -46,7 +46,9 @@ Adendos:
 
 5 - Paciência: As vezes a consulta pelos dados climáticos pode levar alguns segundos, mas eles vão aparecer ;)
 
-6 - Testado nos seguintes dispositivos: 
+6 - Em caso de pesquisar a cidade pelo nome e ser levado a um local diferente, apague a última letra e adicione novamente em seguida.
+
+7 - Testado nos seguintes dispositivos: 
 - Moto G8 plus - Moto G7 Play - Samsung A30S - Samsung Galaxy J8
 - Samsung Galaxy S8 - Samsung Galaxy S8 Plus - Xiaomi MiA1 - Xiaomi Redmi note 8 - Xiaomi Redmi note 7
 - Xiaomi Redmi 6 pro - Xiaomi Redmi S2 - Zenfone 3 Max
