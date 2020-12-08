@@ -1,4 +1,4 @@
-#Sun Jul 26 21:06:57 BRT 2020
-base.0=/home/daniel/Área de Trabalho/projeto/android/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+#Mon Dec 07 22:39:20 BRT 2020
+base.0=/home/trackingtrade/Documentos/projetos/projeto/android/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

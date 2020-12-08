@@ -3,11 +3,11 @@ import React from 'react';
 import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import Search from './telas/Search';
-import Home from './telas/Home';
-import Data from './telas/Data';
-import Register from './telas/Register';
-import Edit from './telas/Edit';
+import Search from './screens/Search';
+import Home from './screens/Home';
+import Data from './screens/Data';
+import Register from './screens/Register';
+import Edit from './screens/Edit';
 
 //cria a pilha de navegação, permitindo navegar entre as telas do app
 const Stack = createStackNavigator();

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "projeto-tvOS.app"
-               BlueprintName = "projeto-tvOS"
-               ReferencedContainer = "container:projeto.xcodeproj">
+               BuildableName = "weather-tvOS.app"
+               BlueprintName = "weather-tvOS"
+               ReferencedContainer = "container:weather.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "projeto-tvOSTests.xctest"
-               BlueprintName = "projeto-tvOSTests"
-               ReferencedContainer = "container:projeto.xcodeproj">
+               BuildableName = "weather-tvOSTests.xctest"
+               BlueprintName = "weather-tvOSTests"
+               ReferencedContainer = "container:weather.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "projeto-tvOS.app"
-            BlueprintName = "projeto-tvOS"
-            ReferencedContainer = "container:projeto.xcodeproj">
+            BuildableName = "weather-tvOS.app"
+            BlueprintName = "weather-tvOS"
+            ReferencedContainer = "container:weather.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "projeto-tvOS.app"
-            BlueprintName = "projeto-tvOS"
-            ReferencedContainer = "container:projeto.xcodeproj">
+            BuildableName = "weather-tvOS.app"
+            BlueprintName = "weather-tvOS"
+            ReferencedContainer = "container:weather.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
