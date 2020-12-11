@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/trackingtrade/Documentos/projetos/projeto/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-nl/values-nl.xml",
+            "outputFile": "/home/trackingtrade/Documentos/projetos/WeatherApp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-nl/values-nl.xml",
             "map": [
                 {
                     "source": "/home/trackingtrade/.gradle/caches/transforms-2/files-2.1/55a93df4343103a2fd4aeb2cea54440e/jetified-play-services-basement-17.0.0/res/values-nl/values.xml",
