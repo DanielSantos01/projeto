@@ -28,6 +28,10 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'react/prop-types': [
+      'enabled',
+    ],
+    'import/prefer-default-export': 'off',
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.tsx'] }],
