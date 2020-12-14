@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Marker } from 'react-native-maps';
 
-import {
-  Container,
-  WeatherIconContainer,
-  DirectionerContainer,
-  DirectionerText,
-  LocalName,
-  WeatherIcon,
-  Map,
-  WeatherInfoContainer,
-  Info,
-} from './styles';
+import { DataProps, InfoType } from './localGeneric';
+import Main from './Data';
 
-const Data: React.FC = ({ route: { params: { latitude, longitude } } }) => {
-  const [info, setInfo] = useState({
+const Data: React.FC<DataProps> = ({ route }) => {
+  const { latitude, longitude } = route.params;
+  const [info, setInfo] = useState<InfoType>({
     name: 'Loading...',
     temp: 'Loading...',
     humidity: 'Loading...',
@@ -40,68 +31,7 @@ const Data: React.FC = ({ route: { params: { latitude, longitude } } }) => {
   }, []);
 
   return (
-    <Container>
-
-      <WeatherIconContainer>
-        <LocalName>{info.name}</LocalName>
-
-        <WeatherIcon
-          source={{ uri: `https://openweathermap.org/img/w/${info.icon}.png` }}
-        />
-      </WeatherIconContainer>
-
-      <WeatherInfoContainer>
-        <Info>
-          <Info style={{ fontWeight: 'bold' }}>Temperature:</Info>
-          {' '}
-          {info.temp}
-          {' '}
-          ºC
-        </Info>
-
-      </WeatherInfoContainer>
-
-      <WeatherInfoContainer>
-        <Info>
-          <Info style={{ fontWeight: 'bold' }}>Humidity:</Info>
-          {' '}
-          {info.humidity}
-          {' '}
-          g/Kg
-        </Info>
-      </WeatherInfoContainer>
-
-      <WeatherInfoContainer>
-        <Info>
-          <Info style={{ fontWeight: 'bold' }}>Description:</Info>
-          {' '}
-          {info.desc}
-        </Info>
-      </WeatherInfoContainer>
-
-      <DirectionerContainer>
-        <DirectionerText>You are looking at here</DirectionerText>
-      </DirectionerContainer>
-
-      <Map
-        scrollEnabled={false}
-        zoomEnabled={false}
-        region={{
-          latitude,
-          longitude,
-          latitudeDelta: 0.6,
-          longitudeDelta: 0.6,
-        }}
-        loadingEnabled
-      >
-        <Marker coordinate={{
-          latitude,
-          longitude,
-        }}
-        />
-      </Map>
-    </Container>
-
+    <Main info={info} latitude={latitude} longitude={longitude} />
   );
 };
 
