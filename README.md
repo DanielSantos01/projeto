@@ -53,3 +53,6 @@ Adendos:
 - Samsung Galaxy S8 - Samsung Galaxy S8 Plus - Xiaomi MiA1 - Xiaomi Redmi note 8 - Xiaomi Redmi note 7
 - Xiaomi Redmi 6 pro - Xiaomi Redmi S2 - Zenfone 3 Max
 
+**Para rodar o aplicativo em modo de debug, clone este repositório e, antes de tentar executar,
+rode o comando yarn install para instalar localmente todas as dependências :)
+
