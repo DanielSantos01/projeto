@@ -28,6 +28,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'no-plusplus': 'off',
     'react/prop-types': 'off',
     'import/prefer-default-export': 'off',
     'no-use-before-define': 'off',

@@ -15,14 +15,14 @@ export const Title = styled.Text`
     text-align: center;
     font-size: 30px;
     font-weight: bold;
-    color: rgba(0, 120, 255, .75);
+    color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const Subtitle = styled.Text`
     font-size: 12px;
     text-align: center;
     font-style: italic;
-    color: rgba(0, 120, 255, .75);
+    color: ${({ theme }) => theme.colors.primary};
     margin-top: -5px;
 `;
 
@@ -36,14 +36,14 @@ export const EmptyText = styled.Text`
     color: white;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgba(0, 120, 255, .75);
+    background-color: ${({ theme }) => theme.colors.primary};
     padding: 7px;
     border-radius: 5px;
 `;
 
 export const FooterContainer = styled.View`
     margin-top: 42%;
-    background-color: rgba(0, 120, 255, .75);
+    background-color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const FooterText = styled.Text`
@@ -58,7 +58,7 @@ export const ListTitle = styled.Text`
     margin-left: auto;
     margin-right: auto;
     font-weight: bold;
-    color: rgba(0, 120, 255, .75);
+    color: ${({ theme }) => theme.colors.primary};
     font-size: 18px;
     margin-top: 10%;
 `;

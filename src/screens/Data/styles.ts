@@ -10,7 +10,7 @@ export const WeatherIconContainer = styled.View`
 `;
 
 export const LocalName = styled.Text`
-    color: rgba(0, 120, 255, .65);
+    color: ${({ theme }) => theme.colors.primary};
     margin-top: 30px;
     font-size: 30px;
 `;
@@ -26,13 +26,13 @@ export const WeatherInfoContainer = styled.View`
 `;
 
 export const Info = styled.Text`
-    color: rgba(0, 120, 255, .65);
+    color: ${({ theme }) => theme.colors.primary};
     font-size: 20px;
 `;
 
 export const DirectionerContainer = styled.View`
     margin-top: 4%;
-    background-color: rgba(0, 120, 255, .5);
+    background-color: ${({ theme }) => theme.colors.primary};
     align-items: center;
 `;
 
