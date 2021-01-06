@@ -8,18 +8,7 @@ import AppRoutes from './routes';
 import Theme from './styles/theme';
 
 const App: React.FC = () => (
-  <NavigationContainer
-    ref={navigationRef}
-    theme={
-          {
-            colors: {
-              card: Theme.colors.primary,
-              background: 'white',
-              text: 'white',
-            },
-          }
-      }
-  >
+  <NavigationContainer ref={navigationRef}>
     <ThemeProvider theme={Theme.defaultTheme}>
       <AppRoutes />
     </ThemeProvider>

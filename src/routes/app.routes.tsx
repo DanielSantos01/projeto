@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 
 const Routes: React.FC = () => (
   <>
-    <Stack.Navigator>
+    <Stack.Navigator headerMode="none">
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen name="Data" component={Data} />
