@@ -10,6 +10,7 @@ import {
   ListTitle,
   SearchButton,
   ButtonText,
+  Container,
 } from './styles';
 
 const Home: React.FC<MainProps> = ({
@@ -20,14 +21,14 @@ const Home: React.FC<MainProps> = ({
   viewLocaleWeather,
   extraData,
 }) => (
-  <>
+  <Container>
     <TitleContainer>
       <Title>Weather</Title>
-      <Subtitle>each season your way</Subtitle>
+      <Subtitle>Cada estação do seu jeito</Subtitle>
     </TitleContainer>
 
     <>
-      <ListTitle>Your list of places</ListTitle>
+      <ListTitle>Sua lista de lugares</ListTitle>
     </>
 
     <LocaleList
@@ -39,9 +40,9 @@ const Home: React.FC<MainProps> = ({
     />
 
     <SearchButton onPress={onOpenLocaleSearcher}>
-      <ButtonText>Search</ButtonText>
+      <ButtonText>Procurar</ButtonText>
     </SearchButton>
-  </>
+  </Container>
 );
 
 export default Home;

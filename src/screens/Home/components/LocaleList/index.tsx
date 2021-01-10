@@ -27,7 +27,7 @@ const LocaleList: React.FC<LocaleListProps> = ({
 
   const Empty: React.FC = () => (
     <EmptyContainer>
-      <EmptyText>your favorite places will appear here</EmptyText>
+      <EmptyText>Seus lugares favoritos irão aparecer aqui!</EmptyText>
     </EmptyContainer>
   );
 

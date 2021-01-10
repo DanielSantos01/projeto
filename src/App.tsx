@@ -1,5 +1,4 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
 
@@ -12,7 +11,6 @@ const App: React.FC = () => (
     <ThemeProvider theme={Theme.defaultTheme}>
       <AppRoutes />
     </ThemeProvider>
-    <StatusBar barStyle="dark-content" backgroundColor={Theme.colors.primary} />
   </NavigationContainer>
 );
 

@@ -1,27 +1,26 @@
-import { TextInput } from 'react-native-paper';
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState, useEffect } from 'react';
-import { PermissionsAndroid } from 'react-native';
+import { TextInput } from 'react-native-paper';
 import Geolocation from 'react-native-geolocation-service';
 import { Marker } from 'react-native-maps';
-import Block from '../../components/ButtonBlocks';
+import { coordinate } from './localGeneric';
 import { Container, ViewMap } from './styles';
+import { HttpRequest } from '../../services';
+import { getUserPermission } from '../../utils/GetUserPermission';
 
-const Search = ({ navigation, route }) => {
-  const [city, setCity] = useState('');
-  const [userPosition, setUserPosition] = useState({ latitude: 0, longitude: 0 });
-  const [hasLocationPermission, setHasLocationPermission] = useState(false);
-  const [markedPlace, setMarkedPlace] = useState({ latitude: 0, longitude: 0 });
+const Search: React.FC<any> = () => {
+  const [inputCity, setInputCity] = useState<string>('');
+  const [hasLocationPermission, setHasLocationPermission] = useState<boolean>(false);
+  const [markedPlace, setMarkedPlace] = useState<coordinate>({ latitude: 0, longitude: 0 });
 
-  const fetchCities = async (text) => {
-    setCity(text);
-    (
-      await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${text}&appid=d812ba41f36e1b6fdb2e8a4b8224ec45`)
-        .then((item) => item.json())
-        .then((cityData) => { if (cityData.cod == 200) updateMarkerByCityName(cityData); })
-    );
+  const fetchCities = async (cityName: string) => {
+    setInputCity(cityName);
+    await HttpRequest.requestFromCityName(cityName, handleLocationByName);
   };
 
-  const updateMarkerByCityName = (data) => {
+  const handleLocationByName = (data) => {
+    // TODO (tratamento do status na classe)
+    if (data.cod !== 200) return;
     setMarkedPlace(
       {
         latitude: data.coord.lat,
@@ -30,31 +29,17 @@ const Search = ({ navigation, route }) => {
     );
   };
 
-  const verifyLocationPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
-
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        setHasLocationPermission(true);
-      } else {
-        setHasLocationPermission(false);
-      }
-    } catch (err) {
-      console.warn(err);
-    }
+  const checkPermission = async () => {
+    const response: boolean = await getUserPermission();
+    setHasLocationPermission(response);
   };
 
   useEffect(() => {
-    verifyLocationPermission();
+    checkPermission();
     if (hasLocationPermission) {
+      // TODO (module Geolocation)
       Geolocation.getCurrentPosition(
         (position) => {
-          setUserPosition(
-            {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            },
-          );
           setMarkedPlace(
             {
               latitude: position.coords.latitude,
@@ -82,16 +67,17 @@ const Search = ({ navigation, route }) => {
       <TextInput
         label="search by city name"
         theme={{ colors: { primary: 'rgba(0, 120, 255, .65)' } }}
-        value={city}
-        onChangeText={(text) => fetchCities(text)}
+        value={inputCity}
+        onChangeText={fetchCities}
       />
 
       <ViewMap
+        style={{ flex: 1 }}
         scrollEnabled
         zoomEnabled
         initialRegion={{
-          latitude: userPosition.latitude,
-          longitude: userPosition.longitude,
+          latitude: markedPlace.latitude,
+          longitude: markedPlace.longitude,
           latitudeDelta: 5,
           longitudeDelta: 5,
         }}
@@ -107,14 +93,6 @@ const Search = ({ navigation, route }) => {
       >
         <Marker coordinate={markedPlace} />
       </ViewMap>
-
-      <Block
-        navigation={navigation}
-        markedPlace={markedPlace}
-        route={route}
-        userLocation={userPosition}
-      />
-
     </Container>
   );
 };

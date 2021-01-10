@@ -28,6 +28,8 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'lines-between-class-members': 'off',
+    'class-methods-use-this': 'off',
     'no-plusplus': 'off',
     'react/prop-types': 'off',
     'import/prefer-default-export': 'off',
