@@ -1,10 +1,6 @@
 /* eslint-disable no-unused-vars */
-const voidFunc = () => {
+const voidFunc = (params?: any) => {
   console.log('');
 };
 
-const voidFuncWithParams = (params: any) => {
-  console.log('');
-};
-
-export type voidFunction = typeof voidFunc | typeof voidFuncWithParams;
+export type voidFunction = typeof voidFunc;

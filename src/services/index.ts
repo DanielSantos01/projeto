@@ -3,6 +3,7 @@ import { openLocaleSearcher } from './OpenLocaleSearcher';
 import { viewLocaleWeather } from './ViewLocaleWeather';
 import HandleNavigation from './HandleNavigation';
 import HttpRequest from './HttpRequest';
+import GeolocationHandler from './GeolocationHandler';
 
 export {
   editLocaleName,
@@ -10,4 +11,5 @@ export {
   viewLocaleWeather,
   HandleNavigation,
   HttpRequest,
+  GeolocationHandler,
 };
