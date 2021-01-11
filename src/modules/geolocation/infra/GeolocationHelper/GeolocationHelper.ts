@@ -1,6 +1,6 @@
 import Geolocation, { GeoPosition } from 'react-native-geolocation-service';
 import IGeolocationHelper from '../../adapters/IGeolocationHelper';
-import { voidFunction } from '../../../shared/data/protocols/VoidFunction';
+import { voidFunction } from '../../../shared/data/protocols';
 import { positionModel } from '../../data/protocols';
 
 class GeolocationHelper implements IGeolocationHelper {

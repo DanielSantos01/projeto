@@ -1,6 +1,6 @@
 import IGeolocationHelper from '../../adapters/IGeolocationHelper';
 import IGeolocationHandler from '../../domain/usecases/IGeolocatoinHandler';
-import { voidFunction } from '../../../shared/data/protocols/VoidFunction';
+import { voidFunction } from '../../../shared/data/protocols';
 
 class GeolocationHandler implements IGeolocationHandler {
   private geolocationHelper: IGeolocationHelper;

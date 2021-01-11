@@ -1,11 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { voidFunction } from '../../shared/data/protocols/VoidFunction';
+import { voidFunction } from '../../shared/data/protocols';
 
 interface IHttpHelper {
-  runFetch: (
-    url: string,
-    onFetchSuccess: voidFunction
-  ) => Promise<void>;
+  runFetch: (url: string) => Promise<any>;
 }
 
 export type fetchSuccessType = voidFunction;

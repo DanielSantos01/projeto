@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { voidFunction } from '../../../shared/data/protocols/VoidFunction';
+import { voidFunction } from '../../../shared/data/protocols';
 
 interface IGeolocationHandler {
   getCurrentPosition: (onHasPosition: voidFunction) => void;

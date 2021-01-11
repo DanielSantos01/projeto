@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { voidFunction } from '../../../shared/data/protocols/VoidFunction';
+import { voidFunction } from '../../../shared/data/protocols';
 
 interface IHttpResquest {
-  requestFromCityName: (
+  findCityPosition: (
     cityName: string,
-    onFindLocale: voidFunction,
+    onHasPosition: voidFunction,
   ) => Promise<void>;
 }
 

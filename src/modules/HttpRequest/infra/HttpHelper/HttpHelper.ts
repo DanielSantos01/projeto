@@ -1,10 +1,11 @@
-import IHttpHelper, { fetchSuccessType } from '../../adapters/IHttpHelper';
+import IHttpHelper from '../../adapters/IHttpHelper';
 
+// TODO (Retornar apenas latitude e longitude)
 class HttpHelper implements IHttpHelper {
-  async runFetch(url: string, onFetchSuccess: fetchSuccessType): Promise<void> {
+  async runFetch(url: string): Promise<any> {
     const response = await fetch(url);
     const parsedResponse = await response.json();
-    onFetchSuccess(parsedResponse);
+    return parsedResponse;
   }
 }
 

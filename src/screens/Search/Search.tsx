@@ -4,36 +4,41 @@ import { Marker } from 'react-native-maps';
 import { MainProps } from './localGeneric';
 import { Container, ViewMap } from './styles';
 
-const Search: React.FC<MainProps> = ({ fetchCities, manageClick, cityInput }) => (
+const Search: React.FC<MainProps> = ({
+  fetchCities,
+  inputCity,
+  selectedPosition,
+  manageClick,
+}) => (
   <Container>
-
     <TextInput
-      label="search by city name"
+      label="Buscar pelo nome"
       theme={{ colors: { primary: 'rgba(0, 120, 255, .65)' } }}
-      value={cityInput}
+      value={inputCity}
       onChangeText={fetchCities}
     />
 
     <ViewMap
+      style={{ flex: 1 }}
       scrollEnabled
       zoomEnabled
       initialRegion={{
-        latitude: userPosition.latitude,
-        longitude: userPosition.longitude,
+        latitude: selectedPosition.latitude,
+        longitude: selectedPosition.longitude,
         latitudeDelta: 5,
         longitudeDelta: 5,
       }}
       region={{
-        latitude: markedPlace.latitude,
-        longitude: markedPlace.longitude,
+        latitude: selectedPosition.latitude,
+        longitude: selectedPosition.longitude,
         latitudeDelta: 10,
         longitudeDelta: 10,
       }}
       showsUserLocation
       loadingEnabled
-      onPress={manageClick(position)}
+      onPress={manageClick}
     >
-      <Marker coordinate={markedPlace} />
+      <Marker coordinate={selectedPosition} />
     </ViewMap>
   </Container>
 );
