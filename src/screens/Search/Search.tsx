@@ -1,14 +1,17 @@
 import React from 'react';
 import { TextInput } from 'react-native-paper';
-import { Marker } from 'react-native-maps';
+import Map from '../../components/Map';
+import Modal from '../../components/Modal';
 import { MainProps } from './localGeneric';
-import { Container, ViewMap } from './styles';
+import { Container, MapContainer } from './styles';
 
 const Search: React.FC<MainProps> = ({
   fetchCities,
   inputCity,
   selectedPosition,
   manageClick,
+  modalContent,
+  shouldOpenModal,
 }) => (
   <Container>
     <TextInput
@@ -18,28 +21,15 @@ const Search: React.FC<MainProps> = ({
       onChangeText={fetchCities}
     />
 
-    <ViewMap
-      style={{ flex: 1 }}
-      scrollEnabled
-      zoomEnabled
-      initialRegion={{
-        latitude: selectedPosition.latitude,
-        longitude: selectedPosition.longitude,
-        latitudeDelta: 5,
-        longitudeDelta: 5,
-      }}
-      region={{
-        latitude: selectedPosition.latitude,
-        longitude: selectedPosition.longitude,
-        latitudeDelta: 10,
-        longitudeDelta: 10,
-      }}
-      showsUserLocation
-      loadingEnabled
-      onPress={manageClick}
-    >
-      <Marker coordinate={selectedPosition} />
-    </ViewMap>
+    <MapContainer>
+      <Map
+        latitude={selectedPosition.latitude}
+        longitude={selectedPosition.longitude}
+        manageClick={manageClick}
+      />
+    </MapContainer>
+
+    <Modal Component={modalContent} shouldOpenModal={shouldOpenModal} />
   </Container>
 );
 

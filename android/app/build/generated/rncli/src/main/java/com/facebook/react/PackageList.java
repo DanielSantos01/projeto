@@ -19,6 +19,8 @@ import org.reactnative.maskedview.RNCMaskedViewPackage;
 import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+// react-native-linear-gradient
+import com.BV.LinearGradient.LinearGradientPackage;
 // react-native-maps
 import com.airbnb.android.react.maps.MapsPackage;
 // react-native-permissions
@@ -80,6 +82,7 @@ public class PackageList {
       new RNCMaskedViewPackage(),
       new RNFusedLocationPackage(),
       new RNGestureHandlerPackage(),
+      new LinearGradientPackage(),
       new MapsPackage(),
       new RNPermissionsPackage(),
       new ReanimatedPackage(),
