@@ -64,4 +64,5 @@ export const ButtonText = styled.Text`
   font-size: 12px;
   color: black;
   text-align: center;
+  font-weight: bold;
 `;

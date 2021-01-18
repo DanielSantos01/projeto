@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Feather from 'react-native-vector-icons/Feather';
 
 export const Container = styled.View`
   flex: 1;
@@ -38,17 +39,27 @@ export const ListTitle = styled.Text`
 `;
 
 export const SearchButton = styled.TouchableOpacity`
-    margin-bottom: 10px;
-    margin-top: 0px;
-    border-radius: 20px;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: ${({ theme }) => theme.colors.primary};
+    border-radius: 50px;
+    width: 150px;
+    height: 40px;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    elevation: 6;
+    background-color: ${({ theme }) => theme.colors.lowBlue};
 `;
 
 export const ButtonText = styled.Text`
   color: white;
   font-size: 14px;
+  margin-left: 5px;
+  font-weight: 800;
   text-align: center;
+`;
+
+export const Icon = styled(Feather)`
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.lowGray};
+  font-size: 25px;
 `;

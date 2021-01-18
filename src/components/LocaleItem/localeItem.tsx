@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View } from 'react-native';
+import Feather from 'react-native-vector-icons/Feather';
 
 import getShadow from '../utils/getShadow';
 import { MainProps } from './localGeneric';
@@ -19,31 +19,18 @@ const LocaleItem: React.FC<MainProps> = ({
 }) => (
   <ItemContainer style={getShadow('#000')}>
 
-    <View style={{ width: '50%' }}>
-      <SavedLocale<any>
-        icon="cloud-outline"
-        mode="contained"
-        onPress={openDataCompact}
-        theme={{ colors: { primary: 'rgba(0, 120, 255, .65)' } }}
-      >
-        <LocaleText>{name}</LocaleText>
-      </SavedLocale>
+    <SavedLocale onPress={openDataCompact}>
+      <Feather name="cloud" color="white" size={20} />
+      <LocaleText>{name}</LocaleText>
+    </SavedLocale>
 
-    </View>
+    <LocaleOption onPress={openRenameCompact}>
+      <Feather name="edit" color="#0DB2D6" size={20} />
+    </LocaleOption>
 
-    <LocaleOption
-      icon="border-color"
-      mode="contained"
-      onPress={openRenameCompact}
-      theme={{ colors: { primary: 'rgba(0, 120, 255, .65)' } }}
-    />
-
-    <LocaleOption
-      icon="close-circle"
-      mode="contained"
-      onPress={removeItem}
-      theme={{ colors: { primary: 'rgba(0, 120, 255, .65)' } }}
-    />
+    <LocaleOption onPress={removeItem}>
+      <Feather name="trash-2" color="red" size={20} />
+    </LocaleOption>
   </ItemContainer>
 );
 

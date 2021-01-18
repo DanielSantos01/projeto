@@ -5,9 +5,9 @@ const getShadow = (color: string) => {
       width: 5,
       height: 5,
     },
-    shadowOpacity: 0.5,
+    shadowOpacity: 0.2,
     shadowRadius: 3.84,
-    elevation: 2,
+    elevation: 1,
   };
   return shadow;
 };

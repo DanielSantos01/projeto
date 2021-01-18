@@ -14,6 +14,7 @@ import {
   SearchButton,
   ButtonText,
   Container,
+  Icon,
 } from './styles';
 
 const Home: React.FC<MainProps> = ({
@@ -33,9 +34,7 @@ const Home: React.FC<MainProps> = ({
       <Subtitle>Cada estação do seu jeito</Subtitle>
     </TitleContainer>
 
-    <>
-      <ListTitle>Sua lista de lugares</ListTitle>
-    </>
+    <ListTitle>Sua lista de lugares</ListTitle>
 
     <LocaleList
       items={items}
@@ -44,7 +43,8 @@ const Home: React.FC<MainProps> = ({
     />
 
     <SearchButton onPress={onOpenLocaleSearcher}>
-      <ButtonText>Procurar</ButtonText>
+      <Icon name="search" />
+      <ButtonText>Pesquisar</ButtonText>
     </SearchButton>
 
     <Modal

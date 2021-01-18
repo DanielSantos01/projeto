@@ -9,6 +9,9 @@ const defaultTheme: DefaultTheme = {
     primary: colors.primary,
     attention: colors.attention,
     blueSky: colors.suaveBlue,
+    lowGray: colors.lowGray,
+    mediumGray: colors.mediumGray,
+    lowBlue: colors.lowBlue,
   },
 };
 

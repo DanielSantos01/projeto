@@ -8,6 +8,9 @@ declare module 'styled-components' {
       primary: string;
       attention: string;
       blueSky: string;
+      lowGray: string;
+      mediumGray: string;
+      lowBlue: string;
     };
   }
 }

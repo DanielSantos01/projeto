@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import getShadow from '../utils/getShadow';
 import {
   ButtonText,
   Input,
@@ -16,11 +17,22 @@ const Nomination: React.FC<any> = ({ closeCompact, onSaveLocale }) => {
   };
 
   return (
-    <Container>
-      <Input placeholder="Insira o nome do local" onChangeText={setName} />
+    <Container
+      useAngle
+      angle={50}
+      colors={['#FAFAFC', 'transparent']}
+      locations={[0.0, 1]}
+      style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
+    >
+      <Input
+        placeholder="Insira o nome do local"
+        onChangeText={setName}
+        style={getShadow('#000000')}
+      />
+
       <ButtonsContainer>
         <CancelButton onPress={closeCompact}>
-          <ButtonText>Cancelar</ButtonText>
+          <ButtonText cancelType>Cancelar</ButtonText>
         </CancelButton>
         <ConfirmButton onPress={onSave}>
           <ButtonText>Salvar</ButtonText>
