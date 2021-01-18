@@ -1,80 +1,76 @@
 import React, { useState, useEffect } from 'react';
 
-import {
-  viewLocaleWeather,
-  editLocaleName,
-  openLocaleSearcher,
-} from '../../services';
-import {
-  getLocalData,
-  saveLocalData,
-  handleNewLocale,
-  getUserAnswer,
-} from '../../utils';
-import { HomeProps } from './localGeneric';
+import { localeItemModel } from '../../modules/shared/data/protocols';
+import { openSearcher, StorageHandler } from '../../services';
+import { HomeProps, OpenCompactProps } from './localGeneric';
 import Main from './Home';
 
-const Home: React.FC<HomeProps> = ({ route }) => {
-  const { params } = route;
-  const [items, setItems] = useState([]);
-
-  const alignData = (data: any) => {
-    setItems(data);
-    saveLocalData(data);
-  };
+const Home: React.FC<HomeProps> = () => {
+  const [updatedAt, setUpdated] = useState<number>();
+  const [isOpened, setOpened] = useState<boolean>();
+  const [isData, setIsData] = useState<boolean>();
+  const [localeData, setLocaleData] = useState<localeItemModel>();
+  const [previousName, setPreviousName] = useState<string>();
+  const [items, setItems] = useState<localeItemModel[]>([]);
 
   const verifyLocalData = async () => {
-    const weatherData = await getLocalData();
+    const weatherData: localeItemModel[] = await StorageHandler.getItems();
     setItems(weatherData);
   };
 
-  const checkSetItems = () => {
-    const response = handleNewLocale(params, items);
-    alignData(response);
-  };
-
-  const removeFromList = (item) => {
-    const data = items;
-    data.splice(data.indexOf(item), 1);
-    alignData(data);
-  };
-
-  const onExcludeConfirm = (item) => () => {
-    removeFromList(item);
-  };
-
-  const onTryToExclude = (item) => () => {
-    getUserAnswer(onExcludeConfirm(item));
-  };
-
-  const onTryToEdit = (item) => {
-    editLocaleName(items.indexOf(item), item.title, items);
-  };
-
-  const onTryToViewWeather = (item) => {
-    viewLocaleWeather(item.latitude, item.longitude);
+  const updateList = (updateTime: number) => {
+    setUpdated(updateTime);
   };
 
   const onOpenLocaleSearcher = () => {
-    openLocaleSearcher(items);
+    openSearcher({ setUpdated: updateList });
+  };
+
+  const openCompact = (props: OpenCompactProps) => {
+    const { data, name } = props;
+    if (name) {
+      setPreviousName(name);
+      setIsData(false);
+    } else {
+      setLocaleData(data);
+      setIsData(true);
+    }
+    setOpened(true);
+  };
+
+  const closeCompact = () => setOpened(false);
+
+  const onRename = async (newName: string) => {
+    const alreadyExists: boolean = await StorageHandler.checkIfExists(newName);
+    if (alreadyExists) {
+      alert('escolha outro nome');
+      return;
+    }
+    await StorageHandler.renameItem(previousName, newName);
+    setUpdated(new Date().getMilliseconds());
+    closeCompact();
+  };
+
+  const onExclude = async (itemName: string) => {
+    await StorageHandler.removeItem(itemName);
+    setUpdated(new Date().getMilliseconds());
   };
 
   useEffect(() => {
-    checkSetItems();
-  }, [params]);
-
-  useEffect(() => {
     verifyLocalData();
-  }, []);
+  }, [updatedAt]);
 
   return (
     <Main
-      editLocaleName={onTryToEdit}
-      viewLocaleWeather={onTryToViewWeather}
-      onTryToExclude={onTryToExclude}
       onOpenLocaleSearcher={onOpenLocaleSearcher}
+      closeCompact={closeCompact}
+      isData={isData}
+      isOpened={isOpened}
+      localeData={localeData}
+      onRename={onRename}
+      onExclude={onExclude}
+      openCompact={openCompact}
       items={items}
-      extraData={new Date().getMilliseconds()}
     />
   );
 };

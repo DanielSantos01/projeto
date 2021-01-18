@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
+import Nomination from '../../components/Nomination';
+import Modal from '../../components/Modal';
+import Visualizer from '../Visualizer';
 import { LocaleList } from './components';
 import { MainProps } from './localGeneric';
 import {
@@ -15,11 +18,14 @@ import {
 
 const Home: React.FC<MainProps> = ({
   items,
-  onTryToExclude,
   onOpenLocaleSearcher,
-  editLocaleName,
-  viewLocaleWeather,
-  extraData,
+  closeCompact,
+  isData,
+  isOpened,
+  localeData,
+  onRename,
+  openCompact,
+  onExclude,
 }) => (
   <Container>
     <TitleContainer>
@@ -33,15 +39,27 @@ const Home: React.FC<MainProps> = ({
 
     <LocaleList
       items={items}
-      extraData={extraData}
-      editLocaleName={editLocaleName}
-      onTryToExclude={onTryToExclude}
-      viewLocaleWeather={viewLocaleWeather}
+      openCompact={openCompact}
+      onExclude={onExclude}
     />
 
     <SearchButton onPress={onOpenLocaleSearcher}>
       <ButtonText>Procurar</ButtonText>
     </SearchButton>
+
+    <Modal
+      Component={isData ? Visualizer : Nomination}
+      isCompact
+      closeCompact={closeCompact}
+      shouldOpen={isOpened}
+      props={{
+        onSaveLocale: onRename,
+        closeCompact,
+        latitude: localeData?.latitude,
+        longitude: localeData?.longitude,
+        viewOnly: true,
+      }}
+    />
   </Container>
 );
 

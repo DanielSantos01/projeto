@@ -1,10 +1,10 @@
 import { Alert } from 'react-native';
 
-export const getUserAnswer = (confirmAction) => {
+export const getUserAnswer = (itemName: string, confirmAction: () => void) => {
   Alert.alert('Tem certeza?',
-    'Esta ação removerá o item selecionado',
+    `O item "${itemName}" está prester a ser excluído`,
     [
-      { text: 'Sim, tenho certeza', onPress: confirmAction },
-      { text: 'Não desejo excluir' },
+      { text: 'Excluir', onPress: confirmAction },
+      { text: 'Cancelar' },
     ], { cancelable: true });
 };

@@ -1,11 +1,9 @@
-import { getLocalData } from './getLocalData';
 import { getUserAnswer } from './getUserAnswer';
-import { handleNewLocale } from './handleNewLocale';
-import { saveLocalData } from './saveLocalData';
+import { getUserPermission } from './GetUserPermission';
+import { handleColor } from './handleColor';
 
 export {
   getUserAnswer,
-  getLocalData,
-  saveLocalData,
-  handleNewLocale,
+  getUserPermission,
+  handleColor,
 };

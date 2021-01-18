@@ -1,6 +1,9 @@
 import React from 'react';
+import LinearGradient from 'react-native-linear-gradient';
 
 import { MainProps } from './localGeneric';
+import Modal from '../../components/Modal';
+import Nomination from '../../components/Nomination';
 import {
   Container,
   WeatherIconContainer,
@@ -9,11 +12,26 @@ import {
   WeatherInfoContainer,
   Info,
   ContentContainer,
-  Input,
+  ButtonText,
+  SaveButton,
 } from './styles';
 
-const Preview: React.FC<MainProps> = ({ weatherInfo }) => (
-  <>
+const Visualizer: React.FC<MainProps> = ({
+  weatherInfo,
+  isCompactOpened,
+  openCompact,
+  closeCompact,
+  onSaveLocale,
+  viewOnly,
+  color,
+}) => (
+  <LinearGradient
+    useAngle
+    angle={350}
+    colors={['transparent', color || 'transparent']}
+    locations={[0.0, 1]}
+    style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
+  >
     <Container>
       <ContentContainer>
         <WeatherIconContainer>
@@ -53,10 +71,21 @@ const Preview: React.FC<MainProps> = ({ weatherInfo }) => (
           </Info>
         </WeatherInfoContainer>
       </ContentContainer>
+      {!viewOnly ? (
+        <SaveButton onPress={openCompact}>
+          <ButtonText>Salvar</ButtonText>
+        </SaveButton>
+      ) : null}
 
-      <Input placeholder="Como deseja chamar este lugar ?" />
+      <Modal
+        Component={Nomination}
+        shouldOpen={isCompactOpened}
+        closeCompact={closeCompact}
+        props={{ closeCompact, onSaveLocale }}
+        isCompact
+      />
     </Container>
-  </>
+  </LinearGradient>
 );
 
-export default Preview;
+export default Visualizer;

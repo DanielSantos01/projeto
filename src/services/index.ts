@@ -1,17 +1,13 @@
-import { editLocaleName } from './EditLocaleName';
-import { openLocaleSearcher } from './OpenLocaleSearcher';
-import { viewLocaleWeather } from './ViewLocaleWeather';
+import { openSearcher } from './OpenSearcher';
 import HandleNavigation from './HandleNavigation';
 import HttpRequest from './HttpRequest';
 import GeolocationHandler from './GeolocationHandler';
-import { openPreRegister } from './OpenPreRegister';
+import StorageHandler from './StorageHandler';
 
 export {
-  editLocaleName,
-  openLocaleSearcher,
-  viewLocaleWeather,
+  openSearcher,
   HandleNavigation,
   HttpRequest,
   GeolocationHandler,
-  openPreRegister,
+  StorageHandler,
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { localeItemModel } from '../../../../modules/shared/data/protocols';
 import LocaleItem from '../../../../components/LocaleItem';
 import { LocaleListProps } from './localGeneric';
 import {
@@ -10,18 +11,15 @@ import {
 } from './styles';
 
 const LocaleList: React.FC<LocaleListProps> = ({
-  editLocaleName,
-  extraData,
   items,
-  onTryToExclude,
-  viewLocaleWeather,
+  openCompact,
+  onExclude,
 }) => {
-  const OnRender: React.FC<any> = ({ item }) => (
+  const OnRender = ({ item }) => (
     <LocaleItem
       item={item}
-      onTryToExclude={onTryToExclude}
-      editLocaleName={editLocaleName}
-      viewLocaleWeather={viewLocaleWeather}
+      openCompact={openCompact}
+      onExclude={onExclude}
     />
   );
 
@@ -37,8 +35,7 @@ const LocaleList: React.FC<LocaleListProps> = ({
         ListEmptyComponent={Empty}
         data={items}
         renderItem={OnRender}
-        keyExtractor={(item) => item.key}
-        extraData={extraData}
+        keyExtractor={(item: localeItemModel) => item.name}
       />
     </ListContainer>
   );

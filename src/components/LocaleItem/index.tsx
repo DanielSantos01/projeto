@@ -1,50 +1,35 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View } from 'react-native';
 
-import getShadow from '../utils/getShadow';
+import { getUserAnswer } from '../../utils';
+import Main from './localeItem';
 import { LocaleItemProps } from './localGeneric';
-import {
-  SavedLocale,
-  LocaleOption,
-  ItemContainer,
-  LocaleText,
-} from './styles';
 
 const LocaleItem: React.FC<LocaleItemProps> = ({
   item,
-  viewLocaleWeather,
-  editLocaleName,
-  onTryToExclude,
-}) => (
-  <ItemContainer style={getShadow('#000')}>
+  openCompact,
+  onExclude,
+}) => {
+  const openDataCompact = () => {
+    openCompact({ data: item });
+  };
 
-    <View style={{ width: '50%' }}>
-      <SavedLocale<any>
-        icon="cloud-outline"
-        mode="contained"
-        onPress={viewLocaleWeather}
-        theme={{ colors: { primary: 'rgba(0, 120, 255, .65)' } }}
-      >
-        <LocaleText>{item.title}</LocaleText>
-      </SavedLocale>
+  const openRenameCompact = () => {
+    openCompact({ name: item.name });
+  };
 
-    </View>
+  const removeItem = async () => {
+    getUserAnswer(item.name, () => onExclude(item.name));
+  };
 
-    <LocaleOption
-      icon="border-color"
-      mode="contained"
-      onPress={editLocaleName}
-      theme={{ colors: { primary: 'rgba(0, 120, 255, .65)' } }}
+  return (
+    <Main
+      name={item.name}
+      openDataCompact={openDataCompact}
+      openRenameCompact={openRenameCompact}
+      removeItem={removeItem}
     />
-
-    <LocaleOption
-      icon="close-circle"
-      mode="contained"
-      onPress={onTryToExclude(item)}
-      theme={{ colors: { primary: 'rgba(0, 120, 255, .65)' } }}
-    />
-  </ItemContainer>
-);
+  );
+};
 
 export default LocaleItem;

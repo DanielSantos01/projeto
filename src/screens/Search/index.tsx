@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { coordinate } from './localGeneric';
+
+import { localeItemModel } from '../../modules/shared/data/protocols';
+import { coordinate, SearchProps } from './localGeneric';
 import {
   HttpRequest,
   GeolocationHandler,
+  StorageHandler,
 } from '../../services';
-import Preview from '../Visualizer';
 import { getUserPermission } from '../../utils/GetUserPermission';
 import Main from './Search';
 
-const Search: React.FC<any> = () => {
+const Search: React.FC<SearchProps> = ({ route }) => {
+  const { setUpdated } = route.params;
   const [inputCity, setInputCity] = useState<string>('');
-  const [shouldOpenModal, setOpenModal] = useState<boolean>(false);
   const [hasUserPermission, setUserPermission] = useState<boolean>(false);
   const [selectedPosition, setSelectedPosition] = useState<coordinate>(
     { latitude: 0, longitude: 0 },
@@ -37,15 +39,17 @@ const Search: React.FC<any> = () => {
       longitude: location.coordinate.longitude,
     };
     setSelectedPosition(position);
-    setOpenModal(true);
   };
 
-  const onOpenVisualizer = () => (
-    <Preview
-      latitude={selectedPosition.latitude}
-      longitude={selectedPosition.longitude}
-    />
-  );
+  const onSave = async (localeName: string) => {
+    const localeData: localeItemModel = {
+      latitude: selectedPosition.latitude,
+      longitude: selectedPosition.longitude,
+      name: localeName,
+    };
+    await StorageHandler.saveNewItem(localeData);
+    setUpdated(new Date().getMilliseconds());
+  };
 
   useEffect(() => {
     checkPermission();
@@ -60,8 +64,7 @@ const Search: React.FC<any> = () => {
       inputCity={inputCity}
       manageClick={manageClick}
       selectedPosition={selectedPosition}
-      modalContent={onOpenVisualizer}
-      shouldOpenModal={shouldOpenModal}
+      onSave={onSave}
     />
   );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextInput } from 'react-native-paper';
+import Visualizer from '../Visualizer';
 import Map from '../../components/Map';
 import Modal from '../../components/Modal';
 import { MainProps } from './localGeneric';
@@ -10,8 +11,7 @@ const Search: React.FC<MainProps> = ({
   inputCity,
   selectedPosition,
   manageClick,
-  modalContent,
-  shouldOpenModal,
+  onSave,
 }) => (
   <Container>
     <TextInput
@@ -29,7 +29,10 @@ const Search: React.FC<MainProps> = ({
       />
     </MapContainer>
 
-    <Modal Component={modalContent} shouldOpenModal={shouldOpenModal} />
+    <Modal
+      Component={Visualizer}
+      props={{ onSave, ...selectedPosition }}
+    />
   </Container>
 );
 
