@@ -8,6 +8,7 @@ import {
   ListContainer,
   EmptyContainer,
   EmptyText,
+  Icon,
 } from './styles';
 
 const LocaleList: React.FC<LocaleListProps> = ({
@@ -25,7 +26,8 @@ const LocaleList: React.FC<LocaleListProps> = ({
 
   const Empty: React.FC = () => (
     <EmptyContainer>
-      <EmptyText>Seus lugares favoritos irão aparecer aqui!</EmptyText>
+      <EmptyText>Você ainda não favoritou nenhum local</EmptyText>
+      <Icon name="cloud-offline-outline" />
     </EmptyContainer>
   );
 

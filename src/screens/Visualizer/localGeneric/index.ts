@@ -16,6 +16,7 @@ export interface MainProps {
   onSaveLocale: (localeName: string) => void;
   viewOnly?: boolean;
   color: string;
+  currentTime: string;
 }
 
 export type WeatherInfo = WeatherModel;

@@ -4,4 +4,4 @@ export type WeatherModel = {
   humidity: string;
   desc: string;
   icon: string;
-}
+};

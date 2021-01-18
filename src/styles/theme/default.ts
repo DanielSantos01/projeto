@@ -12,6 +12,10 @@ const defaultTheme: DefaultTheme = {
     lowGray: colors.lowGray,
     mediumGray: colors.mediumGray,
     lowBlue: colors.lowBlue,
+    violet: colors.violet,
+    specialGreen: colors.specialGreen,
+    nightBlue: colors.nightBlue,
+    sunrise: colors.sunrise,
   },
 };
 

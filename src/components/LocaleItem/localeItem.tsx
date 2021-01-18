@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
-import getShadow from '../utils/getShadow';
 import { MainProps } from './localGeneric';
 import {
   SavedLocale,
@@ -17,10 +17,10 @@ const LocaleItem: React.FC<MainProps> = ({
   openRenameCompact,
   removeItem,
 }) => (
-  <ItemContainer style={getShadow('#000')}>
+  <ItemContainer onPress={openDataCompact}>
 
-    <SavedLocale onPress={openDataCompact}>
-      <Feather name="cloud" color="white" size={20} />
+    <SavedLocale>
+      <FontAwesome name="cloud-sun" color="#f3f56d" size={20} />
       <LocaleText>{name}</LocaleText>
     </SavedLocale>
 

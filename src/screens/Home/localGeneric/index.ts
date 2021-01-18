@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { localeItemModel } from '../../../modules/shared/data/protocols';
+import { PalletModel } from '../../../utils/handleHourPallet/localGeneric';
 
 export type HomeProps = {
   route: RouteProps;
@@ -19,6 +20,7 @@ export type MainProps = {
   isOpened: boolean;
   isData: boolean;
   localeData: localeItemModel;
+  colorPallet: ColorPalletModel;
 };
 
 export type OpenCompactProps = {
@@ -26,10 +28,4 @@ export type OpenCompactProps = {
   data?: localeItemModel;
 }
 
-export type LocaleItemType = {
-  isModified?: boolean;
-  lat: number;
-  lon: number;
-  localeName: string;
-  key: string;
-}
+export type ColorPalletModel = PalletModel;

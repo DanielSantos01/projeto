@@ -5,7 +5,7 @@ export const handleColor = (description: string) => {
     case possibleDesc.CLEAR_SKY:
       return '#f4f11c';
     case possibleDesc.BROKEN_CLOUDS:
-      return '#2f0595';
+      return '#993399';
     case possibleDesc.LIGHT_RAIN:
       return '#9063ff';
     case possibleDesc.OVERCAST_CLOUDS:
@@ -15,6 +15,6 @@ export const handleColor = (description: string) => {
     case possibleDesc.SCATTERED_CLOUDS:
       return '#76a4a6';
     default:
-      return '#052e7e';
-  };
+      return '#993399';
+  }
 };

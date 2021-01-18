@@ -1,7 +1,8 @@
 import styled from 'styled-components/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export const ListContainer = styled.View`
-  height: 200px;
+  height: 40%;
 `;
 
 export const List = styled.FlatList`
@@ -15,11 +16,19 @@ export const EmptyContainer = styled.View`
 
 export const EmptyText = styled.Text`
   text-align: left;
+  margin-top: 25%;
   font-size: 15px;
-  color: white;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: ${({ theme }) => theme.colors.primary};
+  color: black;
+  opacity: 0.3;
+  align-self: center;
   padding: 7px;
   border-radius: 5px;
+`;
+
+export const Icon = styled(Ionicons)`
+  color: black;
+  opacity: 0.3;
+  font-size: 35px;
+  font-weight: bold;
+  align-self: center;
 `;

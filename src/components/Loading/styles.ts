@@ -5,7 +5,7 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.mediumGray};
   justify-content: center;
   align-items: center;
-  height: 500px;
+  height: 400px;
 `;
 
 export const TextContent = styled.Text`
@@ -13,4 +13,10 @@ export const TextContent = styled.Text`
   font-size: 20px;
   text-align: center;
   margin-bottom: 10px;
+`;
+
+export const Logo = styled.Image`
+  align-self: center;
+  width: 100px;
+  height: 100px;
 `;

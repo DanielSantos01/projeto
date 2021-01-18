@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { localeItemModel } from '../../modules/shared/data/protocols';
-import { coordinate, SearchProps } from './localGeneric';
+import { coordinate, SearchProps, MapInfoProps } from './localGeneric';
 import {
   HttpRequest,
   GeolocationHandler,
@@ -13,10 +13,9 @@ import Main from './Search';
 const Search: React.FC<SearchProps> = ({ route }) => {
   const { setUpdated } = route.params;
   const [inputCity, setInputCity] = useState<string>('');
+  const [mapInfo, setMapInfo] = useState<MapInfoProps>();
   const [hasUserPermission, setUserPermission] = useState<boolean>(false);
-  const [selectedPosition, setSelectedPosition] = useState<coordinate>(
-    { latitude: 0, longitude: 0 },
-  );
+  const [selectedPosition, setSelectedPosition] = useState<coordinate>();
 
   const onHasPosition = (position: coordinate) => {
     setSelectedPosition(position);
@@ -51,6 +50,10 @@ const Search: React.FC<SearchProps> = ({ route }) => {
     setUpdated(new Date().getMilliseconds());
   };
 
+  const onRegionChange = (props: MapInfoProps) => {
+    setMapInfo(props);
+  };
+
   useEffect(() => {
     checkPermission();
     if (hasUserPermission) {
@@ -65,6 +68,8 @@ const Search: React.FC<SearchProps> = ({ route }) => {
       manageClick={manageClick}
       selectedPosition={selectedPosition}
       onSave={onSave}
+      onRegionChange={onRegionChange}
+      mapInfo={mapInfo}
     />
   );
 };

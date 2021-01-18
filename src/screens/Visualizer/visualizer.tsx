@@ -1,5 +1,4 @@
 import React from 'react';
-import LinearGradient from 'react-native-linear-gradient';
 
 import { MainProps } from './localGeneric';
 import Modal from '../../components/Modal';
@@ -7,13 +6,17 @@ import Nomination from '../../components/Nomination';
 import {
   Container,
   WeatherIconContainer,
-  LocalName,
+  LocaleName,
   WeatherIcon,
   WeatherInfoContainer,
   Info,
   ContentContainer,
   ButtonText,
   SaveButton,
+  Icon,
+  IconContainer,
+  LocaleContainer,
+  Temperature,
 } from './styles';
 
 const Visualizer: React.FC<MainProps> = ({
@@ -24,68 +27,64 @@ const Visualizer: React.FC<MainProps> = ({
   onSaveLocale,
   viewOnly,
   color,
+  currentTime,
 }) => (
-  <LinearGradient
+  <Container
     useAngle
-    angle={350}
-    colors={['transparent', color || 'transparent']}
-    locations={[0.0, 1]}
+    angle={320}
+    colors={[color || 'transparent', 'transparent']}
+    locations={[0, 0.9]}
     style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
   >
-    <Container>
-      <ContentContainer>
-        <WeatherIconContainer>
-          <LocalName>{weatherInfo.name}</LocalName>
+    <ContentContainer>
 
-          <WeatherIcon
-            source={{ uri: `https://openweathermap.org/img/w/${weatherInfo.icon}.png` }}
-          />
-        </WeatherIconContainer>
+      <LocaleContainer>
+        <IconContainer>
+          <Icon name="map-pin" />
+        </IconContainer>
+        <LocaleName>{`${weatherInfo.name}, ${currentTime || '...'}`}</LocaleName>
+      </LocaleContainer>
 
-        <WeatherInfoContainer>
-          <Info>
-            <Info style={{ fontWeight: 'bold' }}>Temperature:</Info>
-            {' '}
-            {weatherInfo.temp}
-            {' '}
-            ºC
-          </Info>
+      <WeatherIconContainer>
+        <WeatherIcon
+          source={{ uri: `https://openweathermap.org/img/w/${weatherInfo.icon}.png` }}
+        />
+      </WeatherIconContainer>
 
-        </WeatherInfoContainer>
+      <Temperature>{` ${weatherInfo.temp} ºC`}</Temperature>
 
-        <WeatherInfoContainer>
-          <Info>
-            <Info style={{ fontWeight: 'bold' }}>Humidity:</Info>
-            {' '}
-            {weatherInfo.humidity}
-            {' '}
-            g/Kg
-          </Info>
-        </WeatherInfoContainer>
+      <WeatherInfoContainer>
+        <Icon name="check" size={15} color="#67e448" />
+        <Info>
+          <Info isBold>Humidade:</Info>
+          {` ${weatherInfo.humidity} `}
+          g/Kg
+        </Info>
+      </WeatherInfoContainer>
 
-        <WeatherInfoContainer>
-          <Info>
-            <Info style={{ fontWeight: 'bold' }}>Description:</Info>
-            {' '}
-            {weatherInfo.desc}
-          </Info>
-        </WeatherInfoContainer>
-      </ContentContainer>
-      {!viewOnly ? (
-        <SaveButton onPress={openCompact}>
-          <ButtonText>Salvar</ButtonText>
-        </SaveButton>
-      ) : null}
+      <WeatherInfoContainer>
+        <Icon name="check" size={15} color="#67e448" />
+        <Info>
+          <Info isBold>Descrição:</Info>
+          {` ${weatherInfo.desc}`}
+        </Info>
+      </WeatherInfoContainer>
+    </ContentContainer>
 
-      <Modal
-        Component={Nomination}
-        shouldOpen={isCompactOpened}
-        closeCompact={closeCompact}
-        props={{ closeCompact, onSaveLocale }}
-        isCompact
-      />
-    </Container>
-  </LinearGradient>
+    {!viewOnly ? (
+      <SaveButton onPress={openCompact}>
+        <ButtonText>Salvar</ButtonText>
+      </SaveButton>
+    ) : null}
+
+    <Modal
+      Component={Nomination}
+      shouldOpen={isCompactOpened}
+      closeCompact={closeCompact}
+      props={{ closeCompact, onSaveLocale }}
+      isCompact
+    />
+  </Container>
 );
 
 export default Visualizer;

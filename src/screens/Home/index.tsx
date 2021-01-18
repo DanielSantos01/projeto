@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
+import { handleHourPallet } from '../../utils';
 import { localeItemModel } from '../../modules/shared/data/protocols';
 import { openSearcher, StorageHandler } from '../../services';
-import { HomeProps, OpenCompactProps } from './localGeneric';
+import { HomeProps, OpenCompactProps, ColorPalletModel } from './localGeneric';
 import Main from './Home';
 
 const Home: React.FC<HomeProps> = () => {
   const [updatedAt, setUpdated] = useState<number>();
   const [isOpened, setOpened] = useState<boolean>();
+  const [colorPallet, setColorPallet] = useState<ColorPalletModel>();
   const [isData, setIsData] = useState<boolean>();
   const [localeData, setLocaleData] = useState<localeItemModel>();
   const [previousName, setPreviousName] = useState<string>();
@@ -56,7 +58,14 @@ const Home: React.FC<HomeProps> = () => {
     setUpdated(new Date().getMilliseconds());
   };
 
+  const handlePallet = () => {
+    const hour: number = new Date().getHours();
+    const pallet: ColorPalletModel = handleHourPallet(hour);
+    setColorPallet(pallet);
+  };
+
   useEffect(() => {
+    handlePallet();
     verifyLocalData();
   }, [updatedAt]);
 
@@ -71,6 +80,7 @@ const Home: React.FC<HomeProps> = () => {
       onExclude={onExclude}
       openCompact={openCompact}
       items={items}
+      colorPallet={colorPallet}
     />
   );
 };

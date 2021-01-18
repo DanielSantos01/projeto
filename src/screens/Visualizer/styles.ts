@@ -1,11 +1,24 @@
 import styled from 'styled-components/native';
+import LinearGradient from 'react-native-linear-gradient';
+import Feather from 'react-native-vector-icons/Feather';
 import { StyleSheet } from 'react-native';
 
-export const Container = styled.View`
+type InfoProps = {
+  isBold?: boolean;
+}
+
+type IconProps = {
+  color?: string;
+  size?: number;
+}
+
+export const Container = styled(LinearGradient)`
   flex: 1;
   flex-direction: column;
-  margin-top: 25px;
-  padding-bottom: 25px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   align-items: center;
   justify-content: center;
 `;
@@ -19,9 +32,13 @@ export const WeatherIconContainer = styled.View`
   align-items: center;
 `;
 
-export const LocalName = styled.Text`
-  color: ${({ theme }) => theme.colors.primary};
-  font-size: 30px;
+export const LocaleName = styled.Text`
+  color: ${({ theme }) => theme.colors.lowBlue};
+  font-size: 14px;
+  opacity: 0.5;
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
 `;
 
 export const WeatherIcon = styled.Image`
@@ -31,21 +48,15 @@ export const WeatherIcon = styled.Image`
 
 export const WeatherInfoContainer = styled.View`
   padding: 12px;
+  flex-direction: row;
 `;
 
-export const Info = styled.Text`
-  color: ${({ theme }) => theme.colors.primary};
+export const Info = styled.Text<InfoProps>`
+  color: ${({ theme }) => theme.colors.lowBlue};
   font-size: 20px;
-`;
-
-export const DirectionerContainer = styled.View`
-  background-color: ${({ theme }) => theme.colors.primary};
-  align-items: center;
-`;
-
-export const DirectionerText = styled.Text`
-  color: white;
-  font-size: 17px;
+  opacity: 0.5;
+  font-weight: ${({ isBold }) => (isBold ? 'bold' : '500')};
+  margin-left: 5px;
 `;
 
 export const SaveButton = styled.TouchableOpacity`
@@ -65,4 +76,42 @@ export const ButtonText = styled.Text`
   color: black;
   text-align: center;
   font-weight: bold;
+`;
+
+export const IconContainer = styled.View`
+  width: 30px;
+  height: 30px;
+  border-color: ${({ theme }) => theme.colors.mediumGray};
+  border-width: ${StyleSheet.hairlineWidth}px;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
+  background-color: transparent;
+`;
+
+export const Icon = styled(Feather)<IconProps>`
+  font-size: ${({ size }) => size || 15}px;
+  font-weight: bold;
+  color: ${({ theme, color }) => color || theme.colors.lowBlue};
+  opacity: 0.5;
+  margin-top: auto;
+  margin-bottom: auto;
+`;
+
+export const LocaleContainer = styled.View`
+  flex-direction: row;
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+`;
+
+export const Temperature = styled.Text`
+  color: ${({ theme }) => theme.colors.lowGray};
+  margin-top: -20px;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  align-self: center;
 `;

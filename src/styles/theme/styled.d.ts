@@ -11,6 +11,10 @@ declare module 'styled-components' {
       lowGray: string;
       mediumGray: string;
       lowBlue: string;
+      violet: string;
+      specialGreen: string;
+      nightBlue: string;
+      sunrise: string;
     };
   }
 }

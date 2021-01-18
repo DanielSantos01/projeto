@@ -15,8 +15,12 @@ const Modal: React.FC<MainProps> = ({
       adjustToContentHeight
       onClosed={isCompact ? closeCompact : null}
       handlePosition={isCompact ? 'inside' : 'outside'}
-      overlayStyle={{ backgroundColor: 'transparent' }}
-      modalStyle={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
+      overlayStyle={{ backgroundColor: 'rgba(0, 0, 0, .05)' }}
+      modalStyle={{
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        elevation: 10,
+      }}
     >
       <Component {...props} />
     </Modalize>

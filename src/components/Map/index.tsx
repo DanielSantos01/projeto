@@ -4,28 +4,34 @@ import { Marker } from 'react-native-maps';
 import { MapProps } from './localGeneric';
 import { ViewMap } from './styles';
 
-const Map: React.FC<MapProps> = ({ latitude, longitude, manageClick }) => (
+const Map: React.FC<MapProps> = ({
+  latitude,
+  longitude,
+  manageClick,
+  MapInfo,
+  onRegionChange,
+}) => (
   <ViewMap
     style={{ flex: 1 }}
     scrollEnabled
     zoomEnabled
-    initialRegion={{
+    initialRegion={latitude ? {
       latitude,
       longitude,
       latitudeDelta: 5,
       longitudeDelta: 5,
-    }}
-    region={{
+    } : null}
+    region={latitude && MapInfo ? {
       latitude,
       longitude,
-      latitudeDelta: 10,
-      longitudeDelta: 10,
-    }}
+      latitudeDelta: MapInfo.latitudeDelta,
+      longitudeDelta: MapInfo.longitudeDelta,
+    } : null}
     showsUserLocation
-    loadingEnabled
+    onRegionChangeComplete={onRegionChange}
     onPress={(position) => (manageClick ? manageClick(position) : null)}
   >
-    <Marker coordinate={{ latitude, longitude }} />
+    {latitude ? <Marker coordinate={{ latitude, longitude }} /> : <></>}
   </ViewMap>
 );
 

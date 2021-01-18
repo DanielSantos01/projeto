@@ -19,6 +19,15 @@ export interface MainProps {
   selectedPosition: coordinate;
   inputCity: string;
   onSave: (localeName: string) => Promise<void>;
+  onRegionChange: (props: MapInfoProps) => void;
+  mapInfo: MapInfoProps;
 }
 
 export type coordinate = positionModel;
+
+export type MapInfoProps = {
+  latitude: number;
+  longitude: number;
+  latitudeDelta: number;
+  longitudeDelta: number;
+}

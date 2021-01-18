@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { handleColor } from '../../utils';
+import { handleColor, getTime } from '../../utils';
 import Loading from '../../components/Loading';
 import { HttpRequest, StorageHandler } from '../../services';
 import { WeatherInfo, VisualizerProps } from './localGeneric';
@@ -12,15 +12,17 @@ const Visualizer: React.FC<VisualizerProps> = ({
   onSave,
   viewOnly,
 }) => {
+  let interval: any;
   const [isCompactOpened, setCompactOpened] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = useState<string>();
   const [color, setColor] = useState<string>();
-  const [isLoading, setLoading] = useState<boolean>();
+  const [isLoading, setLoading] = useState<boolean>(true);
   const [info, setInfo] = useState<WeatherInfo>({
-    name: 'Loading...',
-    temp: 'Loading...',
-    humidity: 'Loading...',
-    desc: 'Loading...',
-    icon: 'Loading...',
+    desc: '',
+    humidity: '',
+    icon: '',
+    name: '',
+    temp: '',
   });
 
   const getColor = (description: string) => {
@@ -30,9 +32,11 @@ const Visualizer: React.FC<VisualizerProps> = ({
 
   const getWeather = async () => {
     setLoading(true);
-    const response: WeatherInfo = await HttpRequest.getCityWeather({ latitude, longitude });
-    setInfo(response);
-    getColor(response.desc);
+    if (latitude && longitude) {
+      const response: WeatherInfo = await HttpRequest.getCityWeather({ latitude, longitude });
+      setInfo(response);
+      getColor(response.desc);
+    }
     setLoading(false);
   };
 
@@ -58,6 +62,18 @@ const Visualizer: React.FC<VisualizerProps> = ({
     getWeather();
   }, [latitude, longitude]);
 
+  useEffect(() => {
+    clearInterval(interval);
+    interval = setInterval(() => {
+      const actualTime: string = getTime();
+      setCurrentTime(actualTime);
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   if (isLoading) return <Loading />;
 
   return (
@@ -69,6 +85,7 @@ const Visualizer: React.FC<VisualizerProps> = ({
       onSaveLocale={onSaveLocale}
       viewOnly={viewOnly}
       color={color}
+      currentTime={currentTime}
     />
   );
 };
