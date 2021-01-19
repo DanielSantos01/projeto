@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { localeItemModel } from '../../modules/shared/data/protocols';
-import { coordinate, SearchProps, MapInfoProps } from './localGeneric';
+import { Coordinate, SearchProps, MapInfoProps } from './localGeneric';
 import {
   HttpRequest,
   GeolocationHandler,
@@ -15,15 +15,18 @@ const Search: React.FC<SearchProps> = ({ route }) => {
   const [inputCity, setInputCity] = useState<string>('');
   const [mapInfo, setMapInfo] = useState<MapInfoProps>();
   const [hasUserPermission, setUserPermission] = useState<boolean>(false);
-  const [selectedPosition, setSelectedPosition] = useState<coordinate>();
+  const [selectedPosition, setSelectedPosition] = useState<Coordinate>({
+    latitude: 0,
+    longitude: 0,
+  });
 
-  const onHasPosition = (position: coordinate) => {
+  const onHasCoordinate = (position: Coordinate) => {
     setSelectedPosition(position);
   };
 
   const fetchCities = async (cityName: string) => {
     setInputCity(cityName);
-    await HttpRequest.findCityPosition(cityName, onHasPosition);
+    await HttpRequest.findCityCoordinate(cityName, onHasCoordinate);
   };
 
   const checkPermission = async () => {
@@ -33,11 +36,11 @@ const Search: React.FC<SearchProps> = ({ route }) => {
 
   const manageClick = (param) => {
     const location = param.nativeEvent;
-    const position: coordinate = {
+    const coordinate: Coordinate = {
       latitude: location.coordinate.latitude,
       longitude: location.coordinate.longitude,
     };
-    setSelectedPosition(position);
+    setSelectedPosition(coordinate);
   };
 
   const onSave = async (localeName: string) => {

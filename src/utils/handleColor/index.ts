@@ -1,6 +1,6 @@
 import { possibleDesc } from './localGeneric';
 
-export const handleColor = (description: string) => {
+export const handleColor = (description: string): string => {
   switch (description) {
     case possibleDesc.CLEAR_SKY:
       return '#f4f11c';

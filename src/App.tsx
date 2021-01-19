@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
+import Toast from 'react-native-toast-message';
 
+import { genericSuccessNonification } from './utils';
 import Loading from './components/Loading';
 import { navigationRef } from './services/HandleNavigation';
 import AppRoutes from './routes';
@@ -12,6 +14,7 @@ const App: React.FC = () => {
 
   setTimeout(() => {
     setLoading(false);
+    genericSuccessNonification('Bem vindo de volta!', 'Isso fortalece o clima entre nós :D');
   }, 2000);
 
   if (isLoading) {
@@ -27,6 +30,7 @@ const App: React.FC = () => {
       <ThemeProvider theme={Theme.defaultTheme}>
         <AppRoutes />
       </ThemeProvider>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </NavigationContainer>
   );
 };

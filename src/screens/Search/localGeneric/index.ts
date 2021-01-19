@@ -23,7 +23,7 @@ export interface MainProps {
   mapInfo: MapInfoProps;
 }
 
-export type coordinate = positionModel;
+export type Coordinate = positionModel;
 
 export type MapInfoProps = {
   latitude: number;

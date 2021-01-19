@@ -2,8 +2,6 @@
 import { createRef } from 'react';
 import { NavigationContainerRef, StackActions } from '@react-navigation/native';
 
-export const isReadyRef = createRef<NavigationContainerRef>();
-
 export const navigationRef = createRef<NavigationContainerRef>();
 
 const navigate = (name: string, params?: Object): void => {

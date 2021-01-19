@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-import { handleColor, getTime } from '../../utils';
 import Loading from '../../components/Loading';
 import { HttpRequest, StorageHandler } from '../../services';
 import { WeatherInfo, VisualizerProps } from './localGeneric';
 import Main from './visualizer';
+import {
+  handleColor,
+  getTime,
+  nameErrorNofitication,
+  successNominationNotification,
+} from '../../utils';
 
 const Visualizer: React.FC<VisualizerProps> = ({
   latitude,
@@ -51,10 +56,11 @@ const Visualizer: React.FC<VisualizerProps> = ({
   const onSaveLocale = async (localeName: string) => {
     const alreadyExists: boolean = await StorageHandler.checkIfExists(localeName);
     if (alreadyExists) {
-      alert('Escolha outro nome');
+      nameErrorNofitication();
     } else {
       closeCompact();
       await onSave(localeName);
+      successNominationNotification(localeName);
     }
   };
 

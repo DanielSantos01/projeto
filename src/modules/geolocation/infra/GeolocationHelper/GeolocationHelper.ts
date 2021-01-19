@@ -1,6 +1,9 @@
+/* eslint-disable no-unused-vars */
 import Geolocation, { GeoPosition } from 'react-native-geolocation-service';
+
 import IGeolocationHelper from '../../adapters/IGeolocationHelper';
 import { voidFunction } from '../../../shared/data/protocols';
+import { genericErrorNotification } from '../../../../utils';
 import { positionModel } from '../../data/protocols';
 
 class GeolocationHelper implements IGeolocationHelper {
@@ -8,7 +11,7 @@ class GeolocationHelper implements IGeolocationHelper {
     Geolocation.getCurrentPosition(this.handlePosition(onHasPosition), this.onFailCallback);
   }
 
-  private handlePosition(onHasPosition: voidFunction) {
+  private handlePosition(onHasPosition: voidFunction): voidFunction {
     return function onSuccessCallback(position: GeoPosition) {
       const currentPosition: positionModel = {
         latitude: position.coords.latitude,
@@ -18,9 +21,11 @@ class GeolocationHelper implements IGeolocationHelper {
     };
   }
 
-  private onFailCallback(err) {
-    // TODO (tratamento do erro)
-    console.warn(err);
+  private onFailCallback(err): void {
+    genericErrorNotification(
+      'Erro!',
+      'Não foi possível obter a sua localização',
+    );
   }
 }
 

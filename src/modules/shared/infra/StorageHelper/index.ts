@@ -1,6 +1,7 @@
 /* eslint-disable no-alert */
 import AsyncStorage from '@react-native-community/async-storage';
 
+import { genericErrorNotification } from '../../../../utils';
 import { IStorageHelper } from '../../adapters';
 import { localeItemModel } from '../../data/protocols';
 
@@ -9,8 +10,10 @@ class StorageHelper implements IStorageHelper {
     try {
       await AsyncStorage.setItem('@data', JSON.stringify(items));
     } catch (err) {
-    // TODO (Card apresentando o erro tratado)
-      alert('Não foi possível salvar os dados localmente.');
+      genericErrorNotification(
+        'Erro!',
+        'Não foi possível salvar seus itens localmente.',
+      );
     }
   }
   public async getItems(): Promise<localeItemModel[]> {
@@ -20,8 +23,10 @@ class StorageHelper implements IStorageHelper {
         return JSON.parse(previous);
       }
     } catch (err) {
-    // TODO (Card apresentando o erro tratado)
-      alert('Não foi possível resgatar os itens salvos localmente');
+      genericErrorNotification(
+        'Erro!',
+        'Não foi possível resgatar os itens salvos localmente.',
+      );
     }
     return [];
   }

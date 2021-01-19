@@ -7,6 +7,7 @@ import {
   LONGITUDE_PLACEHOLDER,
   LATITUDE_PLACEHOLDER,
 } from '../../../../constants';
+import { genericErrorNotification } from '../../../../utils';
 
 class HttpRequest implements IHttpRequest {
   private httpHelper: IHttpHelper;
@@ -21,14 +22,14 @@ class HttpRequest implements IHttpRequest {
     this.handleUrlWithPosition = this.handleUrlWithPosition.bind(this);
   }
 
-  public async findCityPosition(
+  public async findCityCoordinate(
     cityName: string,
-    onHasPosition: voidFunction,
+    onHasCoordinate: voidFunction,
   ): Promise<void> {
     const currentUrl: string = this.handleUrlWithName(cityName);
     const response = await this.httpHelper.runFetch(currentUrl);
     const successCallback = () => {
-      onHasPosition({
+      onHasCoordinate({
         latitude: response.coord.lat,
         longitude: response.coord.lon,
       });
@@ -37,10 +38,10 @@ class HttpRequest implements IHttpRequest {
     this.handleStatusCode(response.cod, successCallback);
   }
 
-  public async getCityWeather(position: positionModel): Promise<WeatherModel> {
-    const currentUrl: string = this.handleUrlWithPosition(position);
+  public async getCityWeather(coordinate: positionModel): Promise<WeatherModel> {
+    const currentUrl: string = this.handleUrlWithPosition(coordinate);
     const response = await this.httpHelper.runFetch(currentUrl);
-    let weather: WeatherModel;
+    let weather: WeatherModel = {} as WeatherModel;
     const successCallback = () => {
       weather = {
         name: response.name,
@@ -67,12 +68,16 @@ class HttpRequest implements IHttpRequest {
   }
 
   private handleStatusCode(code: number, successCallback: voidFunction) {
-    // TODO (tratamento de erros)
+    // TODO (Mensagem paera cada código)
     switch (code) {
       case statusCode.OK:
         successCallback();
         break;
       default:
+        genericErrorNotification(
+          'Ops...',
+          'Houve um erro inesperado enquanto buscávamos os dados. Já estamos trabalhando nisso ;)',
+        );
         break;
     }
   }

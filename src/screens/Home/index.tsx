@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import { handleHourPallet } from '../../utils';
+import {
+  handleHourPallet,
+  nameErrorNofitication,
+  genericSuccessNonification,
+} from '../../utils';
 import { localeItemModel } from '../../modules/shared/data/protocols';
 import { openSearcher, StorageHandler } from '../../services';
 import { HomeProps, OpenCompactProps, ColorPalletModel } from './localGeneric';
@@ -45,17 +49,25 @@ const Home: React.FC<HomeProps> = () => {
   const onRename = async (newName: string) => {
     const alreadyExists: boolean = await StorageHandler.checkIfExists(newName);
     if (alreadyExists) {
-      alert('escolha outro nome');
+      nameErrorNofitication();
       return;
     }
     await StorageHandler.renameItem(previousName, newName);
     setUpdated(new Date().getMilliseconds());
     closeCompact();
+    genericSuccessNonification(
+      'Sucesso!',
+      `Nome alterado de "${previousName}" para "${newName}"`,
+    );
   };
 
   const onExclude = async (itemName: string) => {
     await StorageHandler.removeItem(itemName);
     setUpdated(new Date().getMilliseconds());
+    genericSuccessNonification(
+      'Sucesso!',
+      `O item ${itemName} foi removido da lista de favoritos`,
+    );
   };
 
   const handlePallet = () => {

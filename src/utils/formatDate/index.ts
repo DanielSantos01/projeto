@@ -1,12 +1,13 @@
 import moment from 'moment';
+
 import { months } from './months';
 
-export const getTime = () => {
-  moment.updateLocale('pt-br', { months });
-  const date: string = new Date().toLocaleString('pt-BR');
-  const formatedDate = moment(date).format('DD-MMMM-YYYY HH:mm:ss');
-  formatedDate.replace('-', ' ');
-  const splittedDate = formatedDate.split(' ');
+moment.updateLocale('pt-br', { months });
+
+export const getTime = (): string => {
+  const currentDate: Date = new Date();
+  const formatedDate: string = moment(currentDate).format('DD-MMMM-YYYY HH:mm:ss');
+  const splittedDate: string[] = formatedDate.split(' ');
   splittedDate[0] = splittedDate[0].split('-').join(' de ');
   return splittedDate.join(' às ');
 };

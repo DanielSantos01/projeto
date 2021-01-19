@@ -3,12 +3,12 @@ import { voidFunction } from '../../../shared/data/protocols';
 import { positionModel, WeatherModel } from '../../data/protocols';
 
 interface IHttpResquest {
-  findCityPosition: (
+  findCityCoordinate: (
     cityName: string,
-    onHasPosition: voidFunction,
+    onHasCoordinate: voidFunction,
   ) => Promise<void>;
 
-  getCityWeather: (position: positionModel) => Promise<WeatherModel>;
+  getCityWeather: (coordinate: positionModel) => Promise<WeatherModel>;
 }
 
 export default IHttpResquest;

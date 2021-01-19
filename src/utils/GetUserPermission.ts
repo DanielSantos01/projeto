@@ -1,12 +1,17 @@
 import { PermissionsAndroid } from 'react-native';
 
-export const getUserPermission = async () => {
+import { genericErrorNotification } from './handleNotifications';
+
+export const getUserPermission = async (): Promise<boolean> => {
   try {
     const response: string =
       await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
     return response === PermissionsAndroid.RESULTS.GRANTED;
   } catch (err) {
-    // TODO (tratamento do erro)
+    genericErrorNotification(
+      'Erro',
+      'Não foi possível obter a resposta sobre o uso da localização.',
+    );
   }
   return false;
 };

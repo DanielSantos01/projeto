@@ -15,23 +15,23 @@ const Map: React.FC<MapProps> = ({
     style={{ flex: 1 }}
     scrollEnabled
     zoomEnabled
-    initialRegion={latitude ? {
+    initialRegion={{
       latitude,
       longitude,
       latitudeDelta: 5,
       longitudeDelta: 5,
-    } : null}
-    region={latitude && MapInfo ? {
+    }}
+    region={{
       latitude,
       longitude,
-      latitudeDelta: MapInfo.latitudeDelta,
-      longitudeDelta: MapInfo.longitudeDelta,
-    } : null}
+      latitudeDelta: MapInfo?.latitudeDelta || 10,
+      longitudeDelta: MapInfo?.longitudeDelta || 10,
+    }}
     showsUserLocation
     onRegionChangeComplete={onRegionChange}
     onPress={(position) => (manageClick ? manageClick(position) : null)}
   >
-    {latitude ? <Marker coordinate={{ latitude, longitude }} /> : <></>}
+    <Marker coordinate={{ latitude, longitude }} />
   </ViewMap>
 );
 
