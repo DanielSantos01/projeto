@@ -5,7 +5,7 @@ import { StatusBar } from 'react-native';
 import Nomination from '../../components/Nomination';
 import Modal from '../../components/Modal';
 import Visualizer from '../Visualizer';
-import { LocaleList } from './components';
+import { PlacesList } from './components';
 import { MainProps } from './localGeneric';
 import {
   TitleContainer,
@@ -21,16 +21,14 @@ import {
 } from './styles';
 
 const Home: React.FC<MainProps> = ({
-  items,
-  onOpenLocaleSearcher,
+  savedPlaces,
+  onOpenPlacesSearcher,
   closeCompact,
-  isData,
-  isOpened,
-  localeData,
   onRename,
   openCompact,
   onExclude,
   colorPallet,
+  compactModalInfo,
 }) => (
   <Container>
     <StatusBar barStyle="dark-content" backgroundColor={colorPallet?.ballColor} />
@@ -50,27 +48,27 @@ const Home: React.FC<MainProps> = ({
         <Icon name="star" size={20} />
       </ListTitleContainer>
 
-      <LocaleList
-        items={items}
+      <PlacesList
+        places={savedPlaces}
         openCompact={openCompact}
         onExclude={onExclude}
       />
 
-      <SearchButton onPress={onOpenLocaleSearcher} display={!isOpened}>
+      <SearchButton onPress={onOpenPlacesSearcher} display={!compactModalInfo.isOpened}>
         <Icon name="search" />
         <ButtonText>Pesquisar</ButtonText>
       </SearchButton>
 
       <Modal
-        Component={isData ? Visualizer : Nomination}
+        Component={compactModalInfo.isWeatherType ? Visualizer : Nomination}
         isCompact
         closeCompact={closeCompact}
-        shouldOpen={isOpened}
+        shouldOpen={compactModalInfo.isOpened}
         props={{
-          onSaveLocale: onRename,
+          onSavePlace: onRename,
           closeCompact,
-          latitude: localeData?.latitude,
-          longitude: localeData?.longitude,
+          latitude: compactModalInfo.requiredPlaceInfo?.latitude,
+          longitude: compactModalInfo.requiredPlaceInfo?.longitude,
           viewOnly: true,
         }}
       />

@@ -5,7 +5,7 @@ import { HttpRequest, StorageHandler } from '../../services';
 import { WeatherInfo, VisualizerProps } from './localGeneric';
 import Main from './visualizer';
 import {
-  handleColor,
+  handleVisualizerColor,
   getTime,
   nameErrorNofitication,
   successNominationNotification,
@@ -17,10 +17,10 @@ const Visualizer: React.FC<VisualizerProps> = ({
   onSave,
   viewOnly,
 }) => {
-  let interval: any;
+  let interval: number;
   const [isCompactOpened, setCompactOpened] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<string>();
-  const [color, setColor] = useState<string>();
+  const [screenColor, setScreenColor] = useState<string>();
   const [isLoading, setLoading] = useState<boolean>(true);
   const [info, setInfo] = useState<WeatherInfo>({
     desc: '',
@@ -30,18 +30,16 @@ const Visualizer: React.FC<VisualizerProps> = ({
     temp: '',
   });
 
-  const getColor = (description: string) => {
-    const currentColor: string = handleColor(description);
-    setColor(currentColor);
+  const getScreenColor = (description: string) => {
+    const currentColor: string = handleVisualizerColor(description);
+    setScreenColor(currentColor);
   };
 
   const getWeather = async () => {
     setLoading(true);
-    if (latitude && longitude) {
-      const response: WeatherInfo = await HttpRequest.getCityWeather({ latitude, longitude });
-      setInfo(response);
-      getColor(response.desc);
-    }
+    const response: WeatherInfo = await HttpRequest.getCityWeather({ latitude, longitude });
+    setInfo(response);
+    getScreenColor(response.desc);
     setLoading(false);
   };
 
@@ -53,14 +51,14 @@ const Visualizer: React.FC<VisualizerProps> = ({
     setCompactOpened(false);
   };
 
-  const onSaveLocale = async (localeName: string) => {
-    const alreadyExists: boolean = await StorageHandler.checkIfExists(localeName);
+  const onSavePlace = async (placeName: string) => {
+    const alreadyExists: boolean = await StorageHandler.checkIfExists(placeName);
     if (alreadyExists) {
       nameErrorNofitication();
     } else {
       closeCompact();
-      await onSave(localeName);
-      successNominationNotification(localeName);
+      await onSave(placeName);
+      successNominationNotification(placeName);
     }
   };
 
@@ -88,9 +86,9 @@ const Visualizer: React.FC<VisualizerProps> = ({
       isCompactOpened={isCompactOpened}
       openCompact={openCompact}
       closeCompact={closeCompact}
-      onSaveLocale={onSaveLocale}
+      onSavePlace={onSavePlace}
       viewOnly={viewOnly}
-      color={color}
+      screenColor={screenColor}
       currentTime={currentTime}
     />
   );

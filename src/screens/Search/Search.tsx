@@ -13,7 +13,7 @@ const Search: React.FC<MainProps> = ({
   selectedPosition,
   manageClick,
   onSave,
-  mapInfo,
+  mapDelta,
   onRegionChange,
 }) => (
   <Container>
@@ -29,7 +29,7 @@ const Search: React.FC<MainProps> = ({
       <Map
         latitude={selectedPosition?.latitude}
         longitude={selectedPosition?.longitude}
-        MapInfo={mapInfo}
+        MapDelta={mapDelta}
         onRegionChange={onRegionChange}
         manageClick={manageClick}
       />

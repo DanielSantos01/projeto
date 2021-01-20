@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { MapInfoProps } from '../../../screens/Search/localGeneric';
+import { MapEvent } from 'react-native-maps';
+import { MapDeltaModel } from '../../../screens/Search/localGeneric';
 
 export interface MapProps {
   latitude: number;
   longitude: number;
-  manageClick?: (click: any) => void;
-  MapInfo: MapInfoProps;
-  onRegionChange: (props: MapInfoProps) => void;
+  manageClick: (clickEvent: MapEvent) => void;
+  MapDelta: MapDeltaModel;
+  onRegionChange: (props: MapDeltaModel) => void;
 }

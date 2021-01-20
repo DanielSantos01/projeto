@@ -3,12 +3,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import { genericErrorNotification } from '../../../../utils';
 import { IStorageHelper } from '../../adapters';
-import { localeItemModel } from '../../data/protocols';
+import { PlaceModel } from '../../data/protocols';
 
 class StorageHelper implements IStorageHelper {
-  public async saveItems(items: localeItemModel[]): Promise<void> {
+  public async savePlaces(places: PlaceModel[]): Promise<void> {
     try {
-      await AsyncStorage.setItem('@data', JSON.stringify(items));
+      await AsyncStorage.setItem('@data', JSON.stringify(places));
     } catch (err) {
       genericErrorNotification(
         'Erro!',
@@ -16,11 +16,11 @@ class StorageHelper implements IStorageHelper {
       );
     }
   }
-  public async getItems(): Promise<localeItemModel[]> {
+  public async getPlaces(): Promise<PlaceModel[]> {
     try {
-      const previous: string = await AsyncStorage.getItem('@data');
-      if (previous) {
-        return JSON.parse(previous);
+      const savedPlaces: string = await AsyncStorage.getItem('@data');
+      if (savedPlaces) {
+        return JSON.parse(savedPlaces);
       }
     } catch (err) {
       genericErrorNotification(

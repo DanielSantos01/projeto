@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { localeItemModel } from '../../../modules/shared/data/protocols';
-import { PalletModel } from '../../../utils/handleHourPallet/localGeneric';
+import { PlaceModel } from '../../../modules/shared/data/protocols';
+import { PalletModel } from '../../../utils/handleColorPalletByHour/localGeneric';
 
 export type HomeProps = {
   route: RouteProps;
@@ -11,21 +11,27 @@ type RouteProps = {
 };
 
 export type MainProps = {
-  items: localeItemModel[];
-  onOpenLocaleSearcher: () => void;
+  savedPlaces: PlaceModel[];
+  onOpenPlacesSearcher: () => void;
   openCompact: (props: OpenCompactProps) => void;
   closeCompact: () => void;
-  onRename: (newName: string) => Promise<void>;
-  onExclude: (itemName: string) => Promise<void>;
-  isOpened: boolean;
-  isData: boolean;
-  localeData: localeItemModel;
+  onRename: (newPlaceName: string) => Promise<void>;
+  onExclude: (placeName: string) => Promise<void>;
   colorPallet: ColorPalletModel;
+  compactModalInfo: CompactModalInfoModel;
 };
+
+export type CompactModalInfoModel = {
+  isWeatherType: boolean;
+  isRenameType: boolean;
+  previousName: string;
+  requiredPlaceInfo: PlaceModel;
+  isOpened: boolean;
+}
 
 export type OpenCompactProps = {
   name?: string;
-  data?: localeItemModel;
+  data?: PlaceModel;
 }
 
 export type ColorPalletModel = PalletModel;

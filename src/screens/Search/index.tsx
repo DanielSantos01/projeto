@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { MapEvent } from 'react-native-maps';
 
-import { localeItemModel } from '../../modules/shared/data/protocols';
-import { Coordinate, SearchProps, MapInfoProps } from './localGeneric';
+import { PlaceModel } from '../../modules/shared/data/protocols';
+import {
+  Coordinate,
+  SearchProps,
+  MapDeltaModel,
+  ClickPosition,
+} from './localGeneric';
 import {
   HttpRequest,
   GeolocationHandler,
@@ -13,8 +19,11 @@ import Main from './Search';
 const Search: React.FC<SearchProps> = ({ route }) => {
   const { setUpdated } = route.params;
   const [inputCity, setInputCity] = useState<string>('');
-  const [mapInfo, setMapInfo] = useState<MapInfoProps>();
   const [hasUserPermission, setUserPermission] = useState<boolean>(false);
+  const [mapDelta, setMapDelta] = useState<MapDeltaModel>({
+    latitudeDelta: 5,
+    longitudeDelta: 5,
+  });
   const [selectedPosition, setSelectedPosition] = useState<Coordinate>({
     latitude: 0,
     longitude: 0,
@@ -34,8 +43,8 @@ const Search: React.FC<SearchProps> = ({ route }) => {
     setUserPermission(response);
   };
 
-  const manageClick = (param) => {
-    const location = param.nativeEvent;
+  const manageClick = (clickEvent: MapEvent) => {
+    const location: ClickPosition = clickEvent.nativeEvent;
     const coordinate: Coordinate = {
       latitude: location.coordinate.latitude,
       longitude: location.coordinate.longitude,
@@ -43,18 +52,18 @@ const Search: React.FC<SearchProps> = ({ route }) => {
     setSelectedPosition(coordinate);
   };
 
-  const onSave = async (localeName: string) => {
-    const localeData: localeItemModel = {
+  const onSave = async (placeName: string) => {
+    const placeData: PlaceModel = {
       latitude: selectedPosition.latitude,
       longitude: selectedPosition.longitude,
-      name: localeName,
+      name: placeName,
     };
-    await StorageHandler.saveNewItem(localeData);
+    await StorageHandler.saveNewPlace(placeData);
     setUpdated(new Date().getMilliseconds());
   };
 
-  const onRegionChange = (props: MapInfoProps) => {
-    setMapInfo(props);
+  const onRegionChange = (props: MapDeltaModel) => {
+    setMapDelta(props);
   };
 
   useEffect(() => {
@@ -72,7 +81,7 @@ const Search: React.FC<SearchProps> = ({ route }) => {
       selectedPosition={selectedPosition}
       onSave={onSave}
       onRegionChange={onRegionChange}
-      mapInfo={mapInfo}
+      mapDelta={mapDelta}
     />
   );
 };

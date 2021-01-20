@@ -1,8 +1,8 @@
 import { Alert } from 'react-native';
 
-export const getUserAnswer = (itemName: string, confirmAction: () => void): void => {
+export const getUserAnswer = (placeName: string, confirmAction: () => void): void => {
   Alert.alert('Exclusão de item',
-    `O item "${itemName}" está prestes a ser excluído`,
+    `O item "${placeName}" está prestes a ser excluído`,
     [
       { text: 'Excluir', onPress: confirmAction },
       { text: 'Cancelar' },

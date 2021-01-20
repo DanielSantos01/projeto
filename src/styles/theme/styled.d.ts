@@ -14,6 +14,7 @@ declare module 'styled-components' {
       violet: string;
       specialGreen: string;
       nightBlue: string;
+      dayBlue: string;
       sunrise: string;
     };
   }

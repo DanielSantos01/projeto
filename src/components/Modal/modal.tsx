@@ -22,7 +22,7 @@ const Modal: React.FC<MainProps> = ({
         elevation: 10,
       }}
     >
-      <Component {...props} />
+      <Component {...props as any} />
     </Modalize>
   </>
 );

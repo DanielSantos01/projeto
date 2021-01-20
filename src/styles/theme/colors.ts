@@ -5,8 +5,9 @@ export const colors = {
   nightBlue: 'rgba(0, 50, 255, .70)',
   lowGray: '#FAFAFC',
   lowBlue: '#0DB2D6',
+  dayBlue: '#73d8ee',
   mediumGray: '#E5E5E5',
   violet: '#993399',
   specialGreen: '#18998B',
-  sunrise: 'yellow',
+  sunrise: '#FAF47A',
 };

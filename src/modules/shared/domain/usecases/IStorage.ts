@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { localeItemModel } from '../../data/protocols';
+import { PlaceModel } from '../../data/protocols';
 
 interface IStorage {
-  saveNewItem: (items: localeItemModel) => Promise<void>;
-  renameItem: (oldName: string, newName: string) => Promise<void>;
-  getItems: () => Promise<localeItemModel[]>;
-  removeItem: (name: string) => Promise<void>;
-  checkIfExists: (name: string) => Promise<boolean>;
+  saveNewPlace: (places: PlaceModel) => Promise<void>;
+  renamePlace: (oldName: string, newName: string) => Promise<void>;
+  getAllPlaces: () => Promise<PlaceModel[]>;
+  removePlace: (placeName: string) => Promise<void>;
+  checkIfExists: (placeName: string) => Promise<boolean>;
 }
 
 export default IStorage;

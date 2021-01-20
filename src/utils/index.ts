@@ -1,8 +1,8 @@
 import { getUserAnswer } from './getUserAnswer';
 import { getUserPermission } from './GetUserPermission';
-import { handleColor } from './handleColor';
+import { handleVisualizerColor } from './handleVisualizerColor';
 import { getTime } from './formatDate';
-import { handleHourPallet } from './handleHourPallet';
+import { handleColorPalletByHour } from './handleColorPalletByHour';
 import {
   genericErrorNotification,
   nameErrorNofitication,
@@ -13,9 +13,9 @@ import {
 export {
   getUserAnswer,
   getUserPermission,
-  handleColor,
+  handleVisualizerColor,
   getTime,
-  handleHourPallet,
+  handleColorPalletByHour,
   genericErrorNotification,
   nameErrorNofitication,
   successNominationNotification,

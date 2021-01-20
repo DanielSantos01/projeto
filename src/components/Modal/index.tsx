@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, MutableRefObject } from 'react';
 import { Modalize } from 'react-native-modalize';
 
 import { ModalProps } from './localGeneric';
@@ -11,14 +11,14 @@ const Modal: React.FC<ModalProps> = ({
   shouldOpen,
   closeCompact,
 }) => {
-  const modalizeRef = useRef<Modalize>(null);
+  const modalizeRef: MutableRefObject<Modalize> = useRef<Modalize>(null);
 
   const openModal = () => {
-    modalizeRef.current?.open();
+    modalizeRef?.current.open();
   };
 
   const closeModal = () => {
-    modalizeRef.current?.close();
+    modalizeRef?.current.close();
   };
 
   const handleModal = () => {
@@ -30,7 +30,9 @@ const Modal: React.FC<ModalProps> = ({
   };
 
   useEffect(() => {
-    if (isCompact) handleModal();
+    if (isCompact) {
+      handleModal();
+    }
   }, [isCompact, shouldOpen]);
 
   return (

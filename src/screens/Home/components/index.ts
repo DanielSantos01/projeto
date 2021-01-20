@@ -1,5 +1,3 @@
-import LocaleList from './LocaleList';
+import PlacesList from './PlacesList';
 
-export {
-  LocaleList,
-};
+export { PlacesList };

@@ -3,15 +3,15 @@ import LinearGradient from 'react-native-linear-gradient';
 import { StyleSheet } from 'react-native';
 
 type TextProps = {
-    cancelType?: boolean;
+  cancelType?: boolean;
 }
 
 export const Container = styled(LinearGradient)`
   height: 200px;
   padding-top: 20px;
   border-top-width: ${StyleSheet.hairlineWidth}px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   border-color: ${({ theme }) => theme.colors.mediumGray};
 `;
 
@@ -22,6 +22,7 @@ export const Input = styled.TextInput`
   width: 95%;
   align-self: center;
   font-size: 14px;
+  elevation: 2;
   border-width: ${StyleSheet.hairlineWidth}px;
   border-color: ${({ theme }) => theme.colors.mediumGray};
 `;

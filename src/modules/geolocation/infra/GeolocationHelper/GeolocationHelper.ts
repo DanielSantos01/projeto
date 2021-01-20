@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import Geolocation, { GeoPosition } from 'react-native-geolocation-service';
+import Geolocation, { GeoPosition, GeoError } from 'react-native-geolocation-service';
 
 import IGeolocationHelper from '../../adapters/IGeolocationHelper';
 import { voidFunction } from '../../../shared/data/protocols';
@@ -21,7 +21,7 @@ class GeolocationHelper implements IGeolocationHelper {
     };
   }
 
-  private onFailCallback(err): void {
+  private onFailCallback(err: GeoError): void {
     genericErrorNotification(
       'Erro!',
       'Não foi possível obter a sua localização',

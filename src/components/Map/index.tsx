@@ -1,5 +1,5 @@
 import React from 'react';
-import { Marker } from 'react-native-maps';
+import { Marker, Region } from 'react-native-maps';
 
 import { MapProps } from './localGeneric';
 import { ViewMap } from './styles';
@@ -8,28 +8,37 @@ const Map: React.FC<MapProps> = ({
   latitude,
   longitude,
   manageClick,
-  MapInfo,
+  MapDelta,
   onRegionChange,
 }) => (
   <ViewMap
-    style={{ flex: 1 }}
     scrollEnabled
     zoomEnabled
+    showsUserLocation
+    zoomTapEnabled
+    zoomControlEnabled
+    userLocationAnnotationTitle="Você está aqui"
+    showsPointsOfInterest
+    renderToHardwareTextureAndroid
+    onPress={manageClick}
+    onRegionChangeComplete={(region: Region) => {
+      onRegionChange({
+        latitudeDelta: region.latitudeDelta,
+        longitudeDelta: region.longitudeDelta,
+      });
+    }}
     initialRegion={{
       latitude,
       longitude,
-      latitudeDelta: 5,
-      longitudeDelta: 5,
+      latitudeDelta: MapDelta.latitudeDelta,
+      longitudeDelta: MapDelta.longitudeDelta,
     }}
     region={{
       latitude,
       longitude,
-      latitudeDelta: MapInfo?.latitudeDelta || 10,
-      longitudeDelta: MapInfo?.longitudeDelta || 10,
+      latitudeDelta: MapDelta.latitudeDelta,
+      longitudeDelta: MapDelta.longitudeDelta,
     }}
-    showsUserLocation
-    onRegionChangeComplete={onRegionChange}
-    onPress={(position) => (manageClick ? manageClick(position) : null)}
   >
     <Marker coordinate={{ latitude, longitude }} />
   </ViewMap>

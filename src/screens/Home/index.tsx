@@ -1,98 +1,105 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  handleHourPallet,
+  handleColorPalletByHour,
   nameErrorNofitication,
   genericSuccessNonification,
 } from '../../utils';
-import { localeItemModel } from '../../modules/shared/data/protocols';
+import {
+  HomeProps,
+  OpenCompactProps,
+  ColorPalletModel,
+  CompactModalInfoModel,
+} from './localGeneric';
+import { PlaceModel } from '../../modules/shared/data/protocols';
 import { openSearcher, StorageHandler } from '../../services';
-import { HomeProps, OpenCompactProps, ColorPalletModel } from './localGeneric';
 import Main from './Home';
 
 const Home: React.FC<HomeProps> = () => {
   const [updatedAt, setUpdated] = useState<number>();
-  const [isOpened, setOpened] = useState<boolean>();
   const [colorPallet, setColorPallet] = useState<ColorPalletModel>();
-  const [isData, setIsData] = useState<boolean>();
-  const [localeData, setLocaleData] = useState<localeItemModel>();
-  const [previousName, setPreviousName] = useState<string>();
-  const [items, setItems] = useState<localeItemModel[]>([]);
+  const [savedPlaces, setSavedPlaces] = useState<PlaceModel[]>([]);
+  const [compactModalInfo, setCompactModalInfo] = useState<CompactModalInfoModel>(
+    {} as CompactModalInfoModel,
+  );
 
-  const verifyLocalData = async () => {
-    const weatherData: localeItemModel[] = await StorageHandler.getItems();
-    setItems(weatherData);
+  const getSavedPlaces = async () => {
+    const localPlaces: PlaceModel[] = await StorageHandler.getAllPlaces();
+    setSavedPlaces(localPlaces);
   };
 
   const updateList = (updateTime: number) => {
     setUpdated(updateTime);
   };
 
-  const onOpenLocaleSearcher = () => {
+  const onOpenPlacesSearcher = () => {
     openSearcher({ setUpdated: updateList });
   };
 
   const openCompact = (props: OpenCompactProps) => {
     const { data, name } = props;
-    if (name) {
-      setPreviousName(name);
-      setIsData(false);
-    } else {
-      setLocaleData(data);
-      setIsData(true);
-    }
-    setOpened(true);
+    const organizedInfo: CompactModalInfoModel = {
+      isRenameType: !!name,
+      previousName: name,
+      isWeatherType: !!data,
+      requiredPlaceInfo: data,
+      isOpened: true,
+    };
+    setCompactModalInfo(organizedInfo);
   };
 
-  const closeCompact = () => setOpened(false);
+  const closeCompact = () => {
+    const currentCompactInfo: CompactModalInfoModel = { ...compactModalInfo };
+    currentCompactInfo.isOpened = false;
+    setCompactModalInfo(currentCompactInfo);
+  };
 
-  const onRename = async (newName: string) => {
-    const alreadyExists: boolean = await StorageHandler.checkIfExists(newName);
+  const onRename = async (newPlaceName: string) => {
+    const alreadyExists: boolean = await StorageHandler.checkIfExists(newPlaceName);
     if (alreadyExists) {
       nameErrorNofitication();
       return;
     }
-    await StorageHandler.renameItem(previousName, newName);
+    await StorageHandler.renamePlace(compactModalInfo.previousName, newPlaceName);
     setUpdated(new Date().getMilliseconds());
     closeCompact();
     genericSuccessNonification(
       'Sucesso!',
-      `Nome alterado de "${previousName}" para "${newName}"`,
+      `Nome alterado de "${compactModalInfo.previousName}" para "${newPlaceName}"`,
     );
   };
 
-  const onExclude = async (itemName: string) => {
-    await StorageHandler.removeItem(itemName);
-    setUpdated(new Date().getMilliseconds());
+  const onExclude = async (placeName: string) => {
+    await StorageHandler.removePlace(placeName);
+    const updatedTime: number = new Date().getMilliseconds();
+    setUpdated(updatedTime);
     genericSuccessNonification(
       'Sucesso!',
-      `O item ${itemName} foi removido da lista de favoritos`,
+      `O item "${placeName}" foi removido da lista de favoritos`,
     );
   };
 
   const handlePallet = () => {
-    const hour: number = new Date().getHours();
-    const pallet: ColorPalletModel = handleHourPallet(hour);
+    const currentHour: number = new Date().getHours();
+    const pallet: ColorPalletModel = handleColorPalletByHour(currentHour);
     setColorPallet(pallet);
   };
 
   useEffect(() => {
     handlePallet();
-    verifyLocalData();
+    getSavedPlaces();
   }, [updatedAt]);
 
   return (
     <Main
-      onOpenLocaleSearcher={onOpenLocaleSearcher}
+      onOpenPlacesSearcher={onOpenPlacesSearcher}
       closeCompact={closeCompact}
-      isData={isData}
-      isOpened={isOpened}
-      localeData={localeData}
       onRename={onRename}
       onExclude={onExclude}
       openCompact={openCompact}
-      items={items}
+      savedPlaces={savedPlaces}
       colorPallet={colorPallet}
+      compactModalInfo={compactModalInfo}
     />
   );
 };

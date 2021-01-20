@@ -20,6 +20,7 @@ class HttpRequest implements IHttpRequest {
     this.urlByPosition = urlByPosition;
     this.handleUrlWithName = this.handleUrlWithName.bind(this);
     this.handleUrlWithPosition = this.handleUrlWithPosition.bind(this);
+    this.handleStatusCode = this.handleStatusCode.bind(this);
   }
 
   public async findCityCoordinate(
@@ -68,16 +69,17 @@ class HttpRequest implements IHttpRequest {
   }
 
   private handleStatusCode(code: number, successCallback: voidFunction) {
-    // TODO (Mensagem paera cada código)
     switch (code) {
       case statusCode.OK:
         successCallback();
         break;
-      default:
+      case statusCode.NOT_FOUND:
         genericErrorNotification(
-          'Ops...',
-          'Houve um erro inesperado enquanto buscávamos os dados. Já estamos trabalhando nisso ;)',
+          'Local não encontrado',
+          'Infelizmente não conseguimos encontrar o local solicitado',
         );
+        break;
+      default:
         break;
     }
   }

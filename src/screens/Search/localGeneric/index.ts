@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { LatLng, Point, MapEvent } from 'react-native-maps';
 import { positionModel } from '../../../modules/geolocation/data/protocols';
 
 export interface SearchProps {
@@ -15,19 +16,22 @@ type ParamsProps = {
 
 export interface MainProps {
   fetchCities: (text: string) => void;
-  manageClick: (click: any) => void;
-  selectedPosition: coordinate;
+  manageClick: (clickEvent: MapEvent) => void;
+  selectedPosition: Coordinate;
   inputCity: string;
-  onSave: (localeName: string) => Promise<void>;
-  onRegionChange: (props: MapInfoProps) => void;
-  mapInfo: MapInfoProps;
+  onSave: (placeName: string) => Promise<void>;
+  onRegionChange: (props: MapDeltaModel) => void;
+  mapDelta: MapDeltaModel;
 }
 
 export type Coordinate = positionModel;
 
-export type MapInfoProps = {
-  latitude: number;
-  longitude: number;
+export type MapDeltaModel = {
   latitudeDelta: number;
   longitudeDelta: number;
+}
+
+export type ClickPosition = {
+  coordinate: LatLng;
+  position: Point;
 }

@@ -6,7 +6,7 @@ import Nomination from '../../components/Nomination';
 import {
   Container,
   WeatherIconContainer,
-  LocaleName,
+  PlaceName,
   WeatherIcon,
   WeatherInfoContainer,
   Info,
@@ -15,7 +15,7 @@ import {
   SaveButton,
   Icon,
   IconContainer,
-  LocaleContainer,
+  PlaceNameContainer,
   Temperature,
 } from './styles';
 
@@ -24,26 +24,26 @@ const Visualizer: React.FC<MainProps> = ({
   isCompactOpened,
   openCompact,
   closeCompact,
-  onSaveLocale,
+  onSavePlace,
   viewOnly,
-  color,
+  screenColor,
   currentTime,
 }) => (
   <Container
     useAngle
     angle={320}
-    colors={[color || 'transparent', 'transparent']}
+    colors={[screenColor || 'transparent', 'transparent']}
     locations={[0, 0.9]}
     style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
   >
     <ContentContainer>
 
-      <LocaleContainer>
+      <PlaceNameContainer>
         <IconContainer>
           <Icon name="map-pin" />
         </IconContainer>
-        <LocaleName>{`${weatherInfo.name}, ${currentTime || '...'}`}</LocaleName>
-      </LocaleContainer>
+        <PlaceName>{`${weatherInfo.name}, ${currentTime || '...'}`}</PlaceName>
+      </PlaceNameContainer>
 
       <WeatherIconContainer>
         <WeatherIcon
@@ -81,7 +81,7 @@ const Visualizer: React.FC<MainProps> = ({
       Component={Nomination}
       shouldOpen={isCompactOpened}
       closeCompact={closeCompact}
-      props={{ closeCompact, onSaveLocale }}
+      props={{ closeCompact, onSavePlace }}
       isCompact
     />
   </Container>

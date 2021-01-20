@@ -4,7 +4,7 @@ import { WeatherModel } from '../../../modules/HttpRequest/data/protocols';
 export interface VisualizerProps {
   latitude: number;
   longitude: number;
-  onSave: (localeName: string) => Promise<void>;
+  onSave: (placeName: string) => Promise<void>;
   viewOnly?: boolean;
 }
 
@@ -13,9 +13,9 @@ export interface MainProps {
   isCompactOpened: boolean;
   openCompact: () => void;
   closeCompact: () => void;
-  onSaveLocale: (localeName: string) => void;
+  onSavePlace: (placeName: string) => void;
   viewOnly?: boolean;
-  color: string;
+  screenColor: string;
   currentTime: string;
 }
 

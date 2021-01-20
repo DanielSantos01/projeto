@@ -15,6 +15,7 @@ const defaultTheme: DefaultTheme = {
     violet: colors.violet,
     specialGreen: colors.specialGreen,
     nightBlue: colors.nightBlue,
+    dayBlue: colors.dayBlue,
     sunrise: colors.sunrise,
   },
 };

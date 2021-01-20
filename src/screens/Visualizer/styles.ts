@@ -32,7 +32,7 @@ export const WeatherIconContainer = styled.View`
   align-items: center;
 `;
 
-export const LocaleName = styled.Text`
+export const PlaceName = styled.Text`
   color: ${({ theme }) => theme.colors.lowBlue};
   font-size: 14px;
   opacity: 0.5;
@@ -99,7 +99,7 @@ export const Icon = styled(Feather)<IconProps>`
   margin-bottom: auto;
 `;
 
-export const LocaleContainer = styled.View`
+export const PlaceNameContainer = styled.View`
   flex-direction: row;
   width: 80%;
   align-items: center;

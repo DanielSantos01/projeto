@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { localeItemModel } from '../data/protocols';
+import { PlaceModel } from '../data/protocols';
 
 interface IStorageHelper {
-  saveItems: (items: localeItemModel[]) => Promise<void>;
-  getItems: () => Promise<localeItemModel[]>;
+  savePlaces: (places: PlaceModel[]) => Promise<void>;
+  getPlaces: () => Promise<PlaceModel[]>;
 }
 
 export default IStorageHelper;
