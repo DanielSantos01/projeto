@@ -1,55 +1,46 @@
-# projeto
-Weather app repository - an mobile app developed by using React Native tecnology
+# WeatherApp
+_WeatherApp repository - a mobile app developed by using React Native tecnology!_
 
-Uso do aplicativo:
+*Uso do aplicativo:*
 
-Tela inicial: Ao abrir o aplicativo, você irá se deparar com uma tela simples e intuitiva, contando apenas com um botão interativo para procurar lugares ao redor do mundo.
+*Tela inicial:*
+	Ao abrir o aplicativo, você irá se deparar com uma tela simples e intuitiva. A tela
+dispõe apenas de um botão de pesquisa (Através do qual você pode ter acesso
+à tela de pesquisa) e uma lista contendo os locais salvos por você para futuras
+visualizações climáticas. Ao acessar pela primeira vez o aplicativo, esta lista estará
+vazia.
 
-Tela de pesquisa: A tela de pesquisa é raoávelmente mais cheia do que a tela inicial, então aqui vai uma breve descrição:
+*Tela de Pesquisa:*
+	Você pode chegar nela através do botão de pesquisa da tela principal. Aqui você
+conta com um input de texto na parte superior, na qual você pode procurar pelos mais
+diversos locais ao redor do mundo através de seus nomes. Além disso a tela conta com um mapa interativo onde o usuário pode interagir livremente marcando os locais, dando zoom, etc.
+	Ainda nessa tela, na parte inferior, encontra-se um modal semi-aberto, onde, para abrí-lo
+totalmente, basta arrastar a parte visível para cima. Através deste modal o usuário
+pode verificar os dados climáticos da região marcada no mapa, além de poder salvar
+o local para uma visualização posterior mais fácil. Ao salvar o local, o mesmo será
+adicionado à lista de favoritos!
 
-	º Você pode querer procurar por uma cidade que não sabe onde fica exatamente, para isso, você tem a possibilidade de digitar o nome da
-	 cidade na caixa de texto e o marcador do mapa irá se encarregar de te mostrar onde fica;
+*Adendos:*
 
-	º Você pode querer navegar pelo mapa e escolher uma cidade através dessa navegação. Dê zoom in, zoom out, ou deslize sobre o mapa e, 
-	quando quiser selecionar um local para obter a temperatura, é só clicar sobre ele e o marcador irá mostrar qual a área que você escolheu;
+1º) Você pode ter acesso aos dados climáticos através do modal na tela de pesquisa, ou
+clicando sobre o card que contém o nome do local na tela principal
+(caso ele esteja na sua lista de favoritos);
 
-	º No canto inferior você conta com 2 blocos de botões, cada bloco contendo 2 botões. O bloco da esquerda é referente ao marcador vermelho 
-	(Dinâmico) do mapa. Você pode escolher favoritar a o local mostrado pelo marcador vermelho para consultas futuras, ou apenas observar como 
-	está o clima naquele local no momento.
+2º) Cada local da lista de favoritos pode ser renomeado ou deletado;
 
-	º No canto esquerdo você conta com o bloco de botões associados à sua posição (bolinha azul no mapa), onde também pode favoritar o local ou 
-	apenas ver como está o clima no local onde você se encontra.
+3º) Não é possível salvar dois ou mais locais com o mesmo nome;
 
-Tela de registro: Caso escolha favoritar algum lugar (sua posição ou qualquer outro local no mapa), você será levado a uma tela de registro, onde deverá escolher um nome para esse local. Após escolher o nome, você deve clicar no botão de registrar, para confirmar o registro. *Vale a pena notar que você será notificado caso escolha um nome que já faz parte da sua lista*. Após registrar, você será levado de volta à tela principal, onde poderá ver seu item com o nome por você escolhido.
+4º) Dependendo da conexão com a rede, o modal de dados climáticos pode apresentar uma tela
+de carregamento. Mas fique tranquilo, assim que os dados forem carregados, eles serão
+mostrados;
 
-Lista de locais - Tela principal: De volta à tela principal, após registrar algum lugar, você consegue ver seu item listado. O item em si é composto por 3 botões:
+5º) Em caso de pesquisar a cidade pelo nome e ser levado a um local diferente, apague a última letra e adicione novamente em seguida;
 
-	º O primeiro botão conta com o nome que você escolheu e uma nuvem. Clicando sobre ele, você será levado à tela de visualização dos dados 
-	climáticos da região a qual o nome se refere. (ex. se você marcou Recife no mapa e salvou com o nome de casa, quando clicar sobre o nome 
-	casa, você receberá os dados climáticos de Recife).
-
-	º O segundo é o botão de edição, onde você pode mudar o nome que deu para o local. *Vale a pena lembrar que você será alertado caso 
-	queira renomear para um nome que já consta na sua lista*
-
-	º O terceiro é o botão de exclusão. Clicando sobre ele, você será perguntado se deseja realmente excluir aquele item da sua lista. Caso a 
-	resposta seja sim, o item será removido.
-
-Adendos: 
-
-1 - Você pode chegar à tela de visualização de dados climáticos tanto clicando no nome do local (para o caso de um local favoritado), ou apenas clicando sobre o nome 'weather' na tela de pesquisa.
-
-2 - Na tela dos dados climáticos você conta com a descrição do clima, humidade, temperatura, nome do local, imagem ilustrativa sobre o clima da região, além da visualização da posição real do lugar em questão através de um mapa estático.
-
-3 - Os itens favoritados depois são mostrados primeiro na sua lista. Ou seja, se você salvou 'casa' e depois 'trabalho', a sua lista será mostrada 'trabalho' e 'casa'.
-
-4 - Após atingir um certo número de locais salvos, você pode não ver mais o último item. Mas Calma! Isso foi feito para que o botão de pesquisa não deixasse de estar facilmente acessível para você e, rolando a lista para baixo, você poderá ver todos os seus itens salvos listados corretamente.
-
-5 - Paciência: As vezes a consulta pelos dados climáticos pode levar alguns segundos, mas eles vão aparecer ;)
-
-6 - Em caso de pesquisar a cidade pelo nome e ser levado a um local diferente, apague a última letra e adicione novamente em seguida.
-
-7 - Testado nos seguintes dispositivos: 
+6º) Testado nos seguintes dispositivos: 
 - Moto G8 plus - Moto G7 Play - Samsung A30S - Samsung Galaxy J8
 - Samsung Galaxy S8 - Samsung Galaxy S8 Plus - Xiaomi MiA1 - Xiaomi Redmi note 8 - Xiaomi Redmi note 7
 - Xiaomi Redmi 6 pro - Xiaomi Redmi S2 - Zenfone 3 Max
+
+**Para rodar o aplicativo em modo de debug, clone este repositório e, antes de tentar executar,
+rode o comando yarn install para instalar localmente todas as dependências :D
 
